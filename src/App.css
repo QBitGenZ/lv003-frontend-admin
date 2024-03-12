@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    font-size: 24px;
+}
+
+button {
+    border: 0;
+}
+
+.button {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    color: #fff;
+    background-color: #000;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
