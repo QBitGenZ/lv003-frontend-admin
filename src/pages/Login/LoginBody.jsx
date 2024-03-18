@@ -1,9 +1,9 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LoginBody = () => {
     return (
         <>
-            <div className='LoginBody'>
+            <div id='LoginBody'>
                 <div className='login-left-side'>
                     <img
                         src={
