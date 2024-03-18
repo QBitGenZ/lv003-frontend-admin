@@ -1,6 +1,8 @@
+import "./Sidebar.css";
+
 const SideBar = () => {
     return (
-        <div className='SideBar'>
+        <div id='SideBar'>
             <div className='brand-logo'>
                 <img
                     src={process.env.PUBLIC_URL + "./images/brand_logo.png"}

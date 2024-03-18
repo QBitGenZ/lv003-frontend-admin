@@ -1,4 +1,4 @@
-.SideBar {
+#SideBar {
     width: 18%;
     height: 100vh;
     border-right: 1px #afafaf solid;
@@ -6,7 +6,7 @@
     padding: 0 24px;
 }
 
-.SideBar span {
+#SideBar span {
     font-size: 20px;
 }
 

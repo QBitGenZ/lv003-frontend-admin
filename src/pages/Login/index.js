@@ -1,6 +1,8 @@
 import LoginBody from "./LoginBody";
 import "./Login.css";
 
-export default function () {
+const Login = () => {
     return <LoginBody />;
-}
+};
+
+export default Login;
