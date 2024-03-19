@@ -4,14 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Admin from "./pages/Admin";
+import Dashboard from "./pages/Dashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <BrowserRouter>
         <Routes>
-            <Route index element={<App />}></Route>
-            <Route path='/admin' element={<Admin />}></Route>
+            <Route path='/admin' element={<App />}></Route>
+            <Route path='/admin/dashboard' element={<Dashboard />}></Route>
         </Routes>
     </BrowserRouter>
 );
