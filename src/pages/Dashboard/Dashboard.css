@@ -1,8 +1,8 @@
 #Dashboard .dashboard-body {
-    width: 73%;
+    width: 80%;
     display: inline-block;
-    margin-top: 100px;
-    margin-left: 25%;
+    margin-top: 6%;
+    margin-left: 21%;
 }
 
 #UserStatistics,
@@ -13,5 +13,45 @@
     background-color: #fafafa;
     box-shadow: 0px 3.5px 5.5px 0px rgba(0, 0, 0, 0.02);
     margin: 0 8px;
-    padding: 12px;
+    padding: 14px;
+    padding-right: 0;
+}
+
+#Dashboard .bottom-container {
+    margin: 24px;
+}
+
+#BestSellerProduct .best-seller-prod-title {
+    font-weight: 600;
+}
+
+#BestSellerProduct .best-seller-prod-title > .sub-title {
+    font-weight: 400;
+    display: block;
+    margin: 8px 0 20px;
+}
+
+#BestSellerProduct .best-seller-prod-title > .sub-title > i {
+    margin-right: 8px;
+    padding: 6px 8px;
+    background-color: #00a0ff;
+    border-radius: 100%;
+}
+
+table.best-seller-prod-body * {
+    font-size: 20px;
+}
+
+table.best-seller-prod-body th {
+    padding: 8px 20px;
+    font-size: 20px;
+}
+
+table.best-seller-prod-body td {
+    text-align: center;
+}
+
+table.best-seller-prod-body td.product-name {
+    display: flex;
+    align-items: center;
 }
