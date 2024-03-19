@@ -2,15 +2,21 @@ import { Header, SideBar } from "../../common";
 import UserStatistics from "./UserStatistics";
 import "./Dashboard.css";
 import CostStatistics from "./CostStatictics";
+import BestSellerProduct from "./BestSellerProduct";
 
 const Dashboard = () => {
     return (
         <div id='Dashboard'>
             <Header currentPage={"Trang chủ"} />
-            <SideBar />
+            <SideBar currentPage={"home"} />
             <div className='dashboard-body'>
-                <UserStatistics />
-                <CostStatistics />
+                <div className='top-container'>
+                    <UserStatistics />
+                    <CostStatistics />
+                </div>
+                <div className='bottom-container'>
+                    <BestSellerProduct />
+                </div>
             </div>
         </div>
     );

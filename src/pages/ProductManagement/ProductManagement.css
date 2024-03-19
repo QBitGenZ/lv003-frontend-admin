@@ -1,0 +1,88 @@
+#ProductManagementBody {
+    width: 80%;
+    margin-top: 8%;
+    margin-left: 24%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+#ProductManagementBody .left-side {
+    width: 100%;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 3.5px 10px 0px #b9e3fc;
+    padding: 32px;
+    margin-bottom: 50px;
+}
+
+#ProductManagementBody .left-side .add-prod-btn {
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #485abb 0%, #687ad6 0.01%, #99a9ff 100%);
+}
+
+#ProductFilter {
+    display: flex;
+}
+
+#ProductFilter .seperate-line {
+    display: block;
+    width: 1px;
+    height: 40vh;
+    margin: 32px 0;
+    background-color: #718096;
+}
+
+#FilterOption {
+    margin: 16px 32px;
+    width: 80%;
+}
+
+#FilterOption .filter-option-header {
+    width: 100%;
+    margin: 24px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#FilterOption .filter-option-header .filter-type {
+    font-weight: 600;
+}
+
+#FilterOption .filter-option-header .remove-filter.remove-filter:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#FilterOption .filter-option-body > * {
+    margin: 16px 0;
+}
+
+#FilterOption .filter-option-body .option input {
+    margin-right: 6px;
+    width: 16px;
+    height: 16px;
+}
+
+#ProductList table * {
+    padding: 8px;
+}
+
+#ProductList table th,
+#ProductList table td {
+    white-space: nowrap;
+    text-align: center;
+}
+
+#ProductList td.prod-name {
+    text-align: left;
+}
+
+#ProductList td.prod-name .prod-name-container {
+    display: flex;
+    align-items: center;
+}

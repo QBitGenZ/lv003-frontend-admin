@@ -2,10 +2,7 @@ export const ProductData = [
     {
         ProductNo: "001",
         ProductName: "SKIN 1004",
-        ProductImage: [
-            process.env.PUBLIC_URL + "/images/product001.png",
-            process.env.PUBLIC_URL + "/images/product001_2.png",
-        ],
+        ProductImage: ["/images/phan_nuoc.png", "/images/phan_nuoc.png"],
         ProductDescription:
             "SKIN1004 Madagascar Centella Hyalu-Cica Water-Fit Sun Serum 50ml",
         ProductVote: "4.6",
@@ -23,7 +20,7 @@ export const ProductData = [
     {
         ProductNo: "002",
         ProductName: "Instree",
-        ProductImage: [process.env.PUBLIC_URL + "/images/product002.png"],
+        ProductImage: ["/images/phan_nuoc.png"],
         ProductDescription:
             "Isntree Hyaluronic Acid Watery Sun Gel Double Set (50mL+50mL)",
         ProductVote: "4.2",
@@ -41,7 +38,7 @@ export const ProductData = [
     {
         ProductNo: "003",
         ProductName: "AESTURA",
-        ProductImage: [process.env.PUBLIC_URL + "/images/product003.png"],
+        ProductImage: ["/images/phan_nuoc.png"],
         ProductDescription: "AESTURA Atobarrier 365 Cream 80mL Double Set",
         ProductVote: "4.6",
         ProductPrice: "350.000vnd",
@@ -58,7 +55,7 @@ export const ProductData = [
     {
         ProductNo: "004",
         ProductName: "Real Barrier",
-        ProductImage: [process.env.PUBLIC_URL + "/images/product004.png"],
+        ProductImage: ["/images/phan_nuoc.png"],
         ProductDescription: "Real Barrier Cream Cleaning Foam 120ml Duo Pack",
         ProductVote: "4.6",
         ProductPrice: "350.000vnd",
@@ -75,7 +72,7 @@ export const ProductData = [
     {
         ProductNo: "005",
         ProductName: "ROUND LAB",
-        ProductImage: [process.env.PUBLIC_URL + "/images/product005.png"],
+        ProductImage: ["/images/phan_nuoc.png"],
         ProductDescription:
             "ROUND LAB Birch Juice Moisturizing Ampoule 50ml Special Set (+Cream 20ml)",
         ProductVote: "4.6",

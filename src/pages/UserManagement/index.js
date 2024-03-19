@@ -1,7 +1,10 @@
+import { Header, SideBar } from "../../common";
+
 const UserMangement = () => {
     return (
         <div id='UserMangement'>
-            <div></div>
+            <SideBar currentPage={"userMng"} />
+            <Header currentPage={"Quản lý người dùng"} />
         </div>
     );
 };

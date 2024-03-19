@@ -1,15 +1,15 @@
 #Header {
-    width: 75%;
+    width: calc(76% + 6px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     float: right;
-    padding: 12px;
-    margin: 12px;
+    padding: 20px;
     position: fixed;
     top: 0;
     right: 0;
+    background-color: #fff;
 }
 
 #Header .header-left {
@@ -29,7 +29,7 @@
 #Header .header-right .search-bar-container {
     border: 1px #969696 solid;
     border-radius: 10px;
-    padding: 10px;
+    padding: 8px;
     margin-right: 24px;
 }
 
@@ -40,6 +40,7 @@
 #Header .header-right .search-bar-container input {
     border: 0;
     outline: none;
+    font-size: 20px;
 }
 
 #Header .header-right .avatar {
