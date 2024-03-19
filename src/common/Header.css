@@ -7,37 +7,40 @@
     float: right;
     padding: 12px;
     margin: 12px;
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 
-#Header .header-left-side {
+#Header .header-left {
     font-weight: 600;
 }
 
-#Header .header-right-side {
+#Header .header-right {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#Header .header-right-side > * {
+#Header .header-right > * {
     display: inline-block;
 }
 
-#Header .header-right-side .search-bar {
+#Header .header-right .search-bar-container {
     border: 1px #969696 solid;
     border-radius: 10px;
     padding: 10px;
     margin-right: 24px;
 }
 
-#Header .header-right-side .search-bar i {
+#Header .header-right .search-bar-container i {
     padding-right: 8px;
 }
 
-#Header .header-right-side .search-bar input {
+#Header .header-right .search-bar-container input {
     border: 0;
     outline: none;
 }
 
-#Header .header-right-side .avatar {
+#Header .header-right .avatar {
 }

@@ -1,0 +1,50 @@
+[
+    {
+        "label": "Jan",
+        "value": 500
+    },
+    {
+        "label": "Feb",
+        "value": 700
+    },
+    {
+        "label": "Mar",
+        "value": 1000
+    },
+    {
+        "label": "Apr",
+        "value": 900
+    },
+    {
+        "label": "May",
+        "value": 2000
+    },
+    {
+        "label": "Jun",
+        "value": 5000
+    },
+    {
+        "label": "Jul",
+        "value": 2000
+    },
+    {
+        "label": "Aug",
+        "value": 3000
+    },
+    {
+        "label": "Sep",
+        "value": 600
+    },
+    {
+        "label": "Oct",
+        "value": 2000
+    },
+    {
+        "label": "Nov",
+        "value": 3000
+    },
+    {
+        "label": "Dec",
+        "value": 2000
+    }
+]

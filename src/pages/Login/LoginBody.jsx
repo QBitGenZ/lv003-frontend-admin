@@ -20,7 +20,7 @@ const LoginBody = () => {
                         <input type='password' placeholder='Mật khẩu'></input>
                         <i class='fa-solid fa-lock'></i>
                     </form>
-                    <Link to={"/admin"} className='button login-btn'>
+                    <Link to={"/admin/dashboard"} className='button login-btn'>
                         Đăng nhập
                     </Link>
                 </div>
