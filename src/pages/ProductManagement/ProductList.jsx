@@ -1,5 +1,5 @@
 import { ProductData } from "../../common/json/ProductData";
-import ProductDetail from "./ProductDetail";
+import ProductItem from "./ProductItem";
 
 const ProductList = () => {
     return (
@@ -15,7 +15,7 @@ const ProductList = () => {
                     <th>Chỉnh sửa</th>
                 </tr>
                 {ProductData.map((item) => (
-                    <ProductDetail
+                    <ProductItem
                         prodId={item.ProductNo}
                         prodName={item.ProductDescription}
                         prodImg={item?.ProductImage[0]}

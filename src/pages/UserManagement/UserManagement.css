@@ -1,0 +1,142 @@
+#UserInforBody,
+#UserInforDetail {
+    margin-top: 8%;
+    margin-left: 22%;
+    margin-right: calc(1% + 8px);
+    margin-bottom: 5%;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0px 3.5px 5.5px 0px #b9e3fc;
+    padding: 32px;
+}
+
+#UserInforBody .user-infor-title {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 24px 0;
+}
+
+#UserInforBody .user-infor-body * {
+    padding: 12px 42px;
+    border: 0;
+}
+
+#UserInforBody .user-infor-body th,
+#UserInforBody .user-infor-body td {
+    white-space: nowrap;
+    text-align: center;
+}
+
+#UserInforBody .user-infor-body tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#UserInforBody .user-infor-body tr:hover {
+    cursor: pointer;
+    background-color: #b9e3fc;
+}
+
+#UserInforDetail .back-button {
+    margin-bottom: 24px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+#UserInforDetail .user-infor-detail-body {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+#UserInforDetail .user-infor-detail-body-right {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+}
+
+#UserInforDetail .user-infor-detail-body-right .user-detail-right-top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 72px;
+}
+
+#UserInforDetail .user-detail-right-top > * {
+    font-weight: 600;
+}
+
+#UserInforDetail .user-detail-right-top .user-email {
+    color: #5768d2;
+    font-size: 20px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+#UserInforDetail .user-infor-detail-body-right .delete-user-btn {
+    border-radius: 10px;
+    border: 2px #687ad6 solid;
+    padding: 8px 16px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #485aff;
+}
+
+#UserInforDetail .user-infor-detail-body-right .delete-user-btn:hover {
+    cursor: pointer;
+    background-color: #b9e3fc;
+}
+
+#UserInforDetail .user-detail-right-bot .user-detail-bot-header {
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#UserInforDetail .user-detail-right-bot .user-detail-bot-header > * {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#UserInforDetail .user-detail-right-bot .user-detail-bot-header > div.active {
+    border-bottom: 3px #485aff solid;
+}
+
+#UserInforDetail .user-detail-right-bot .user-detail-bot-body {
+    width: 100%;
+    border-top: 1px #969696 solid;
+    padding-top: 24px;
+}
+
+#UserInforDetail .user-detail-right-bot .user-detail-bot-body td.key {
+    width: 24%;
+}
+
+#UserInforDetail .user-detail-right-bot {
+    width: 100%;
+}
+
+#UserViolation {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1px #cecece solid;
+}
+
+#UserViolation .violation-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#UserViolation .violation-date {
+    font-size: 20px;
+    color: #727272;
+}

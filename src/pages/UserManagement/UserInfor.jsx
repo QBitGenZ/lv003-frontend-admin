@@ -1,8 +1,19 @@
-const UserInfor = () => {
+const UserInfor = ({
+    userID,
+    userName,
+    userPhone,
+    userGender,
+    userAge,
+    onClick,
+}) => {
     return (
-        <div id='UserInfor'>
-            <div></div>
-        </div>
+        <tr id={userID} onClick={onClick}>
+            <td>{userID}</td>
+            <td>{userName}</td>
+            <td>{userPhone}</td>
+            <td>{userGender}</td>
+            <td>{userAge}</td>
+        </tr>
     );
 };
 

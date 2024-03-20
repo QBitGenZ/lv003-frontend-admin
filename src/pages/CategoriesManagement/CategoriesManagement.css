@@ -1,0 +1,111 @@
+#CategoriesManagement * {
+    font-size: 20px;
+}
+
+#CategoriesManagement table td,
+#CategoriesManagement table th {
+    white-space: nowrap;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+#CategoriesWrapper {
+    margin-top: 7%;
+    margin-left: 37%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: end;
+}
+
+#CategoriesWrapper .categories-left-side,
+#CategoriesWrapper .categories-right-side {
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0px 3.5px 10px 0px #b9e3fc;
+    padding: 32px;
+    margin: 0 16px;
+}
+
+#CategoriesWrapper .categories-right-side {
+    width: 70%;
+    height: calc(100vh + 35px);
+}
+
+#CategoriesWrapper .categories-left-side .categories-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 0 12px;
+}
+
+#CategoriesWrapper .categories-header .categories-title,
+#EditCategory .edit-category-header {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#CategoriesWrapper .categories-header .add-category-btn {
+    border-radius: 10px;
+    border: 2px #687ad6 solid;
+    padding: 8px 20px;
+    color: #485aff;
+}
+
+#CategoriesWrapper .categories-header .add-category-btn:hover {
+    cursor: pointer;
+    background-color: #b9e3fc;
+}
+
+#CategoriesWrapper .categories-header .add-category-btn.active {
+    background-color: #b9e3fc;
+}
+
+#CategoriesBody .edit-category {
+    cursor: pointer;
+}
+
+#EditCategory .edit-category-header {
+    margin-bottom: 32px;
+}
+
+#EditCategory .edit-category-body > label {
+    font-weight: 600;
+}
+
+#EditCategory .edit-category-body #category-name {
+    display: block;
+    width: 97%;
+    padding: 8px;
+    margin: 8px 0 32px;
+}
+
+#EditCategory .edit-category-body .edit-catagory-btn-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    margin: 48px auto 0;
+}
+
+#EditCategory .edit-catagory-btn-container .cancel-btn {
+    border-radius: 5px;
+    background: #e2e8f0;
+    padding: 4px 32px;
+}
+
+#EditCategory .edit-catagory-btn-container .approve-btn {
+    border-radius: 5px;
+    background: linear-gradient(90deg, #485abb 0%, #687ad6 0.01%, #99a9ff 100%);
+    padding: 4px 32px;
+}
+
+#EditCategory .edit-catagory-btn-container .cancel-btn:hover,
+#EditCategory .edit-catagory-btn-container .approve-btn:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
