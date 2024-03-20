@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import UserManagement from "./pages/UserManagement";
 import ProductManagement from "./pages/ProductManagement";
+import CategoriesManagement from "./pages/CategoriesManagement";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,7 +20,7 @@ root.render(
                 element={<UserManagement />}></Route>
             <Route
                 path='/admin/category-management'
-                element={<Dashboard />}></Route>
+                element={<CategoriesManagement />}></Route>
             <Route
                 path='/admin/product-management'
                 element={<ProductManagement />}></Route>
