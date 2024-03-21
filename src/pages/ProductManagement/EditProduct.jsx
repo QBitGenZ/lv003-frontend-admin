@@ -2,6 +2,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EditProduct = ({ product, handleBackButtonClicked }) => {
+    const loadImg = (e) => {
+        const [file] = e.target.files;
+        if (file) {
+            document.getElementById("inputImg").src = URL.createObjectURL(file);
+        }
+    };
+
     return (
         <div id='EditProduct'>
             <div className='back-button' onClick={handleBackButtonClicked}>
@@ -9,9 +16,10 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             </div>
             <div className='edit-prod-body'>
                 <div className='edit-prod-body-left'>
-                    <input id='file' type='file'></input>
-                    <label htmlFor='file' className='input-img'>
+                    <input id='imgFile' type='file' onChange={loadImg}></input>
+                    <label htmlFor='imgFile' className='input-img'>
                         <img
+                            id='inputImg'
                             src={
                                 process.env.PUBLIC_URL + "/images/input_img.png"
                             }></img>

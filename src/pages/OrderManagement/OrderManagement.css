@@ -1,0 +1,77 @@
+#OrderBody {
+    margin-top: 5%;
+    margin-left: 20%;
+    padding: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    width: 130vw;
+}
+
+#OrderFilter {
+    display: block;
+    width: 15%;
+    padding: 32px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 3.5px 10px 0px #b9e3fc;
+}
+
+#OrderFilter .order-filter-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 36px;
+}
+
+#OrderFilter .order-filter-header .order-filter-title {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+#OrderFilter .order-filter-header .order-filter-clear {
+    cursor: pointer;
+    color: #666;
+}
+
+#OrderFilter .order-filter-body > * {
+    margin: 24px 0;
+}
+
+#OrderFilter .order-filter-body .filter-item > input {
+    margin-right: 10px;
+}
+
+/* end OrderFilter */
+
+#OrderList {
+    padding: 32px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 3.5px 10px 0px #b9e3fc;
+    width: 75%;
+}
+
+#OrderList table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#OrderList table tr:hover {
+    cursor: pointer;
+    background-color: #b9e3fc;
+}
+
+#OrderList .order-list-title {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 36px;
+}
+
+#OrderList table td,
+#OrderList table th {
+    white-space: nowrap;
+    padding: 12px 24px;
+    text-align: center;
+}
