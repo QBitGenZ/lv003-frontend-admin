@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import UserManagement from "./pages/UserManagement";
 import ProductManagement from "./pages/ProductManagement";
 import CategoriesManagement from "./pages/CategoriesManagement";
+import OrderManagement from "./pages/OrderManagement";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,7 +27,7 @@ root.render(
                 element={<ProductManagement />}></Route>
             <Route
                 path='/admin/order-management'
-                element={<Dashboard />}></Route>
+                element={<OrderManagement />}></Route>
             <Route
                 path='/admin/post-management'
                 element={<Dashboard />}></Route>
