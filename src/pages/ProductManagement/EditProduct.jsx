@@ -1,10 +1,10 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const EditProduct = ({ product, handleBackButtonClicked }) => {
     const [name, setName] = useState("");
-    const [type, setType] = useState("65fdb83059974c11e6eca655");
+    const [type, setType] = useState({});
     const [origin, setOrigin] = useState("");
     const [volume, setVolume] = useState("");
     const [weight, setWeight] = useState("");
@@ -19,6 +19,19 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     const [productionDate, setProductionDate] = useState("");
     const [expiryDate, setExpiryDate] = useState("");
     const [sale, setSale] = useState("");
+
+    useEffect(() => {
+        fetch("http://localhost:3000/v1/product-types", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.log(error));
+    }, []);
 
     const handleSubmit = () => {
         console.log("name: " + name);
@@ -53,6 +66,46 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
 
     const handleChangeOrigin = (e) => {
         setOrigin(e.target.value);
+    };
+
+    const handleChangeWeight = (e) => {
+        setWeight(e.target.value);
+    };
+
+    const handleChangeVolume = (e) => {
+        setVolume(e.target.value);
+    };
+
+    const handleChangeQuantity = (e) => {
+        setQuantity(e.target.value);
+    };
+
+    const handleChangeProductionDate = (e) => {
+        setProductionDate(e.target.value);
+    };
+
+    const handleChangeExpiry = (e) => {
+        setExpiryDate(e.target.value);
+    };
+
+    const handleChangeDescription = (e) => {
+        setDescription(e.target.value);
+    };
+
+    const handleChangePrice = (e) => {
+        setPrice(e.target.value);
+    };
+
+    const handleChangeCost = (e) => {
+        setCost(e.target.value);
+    };
+
+    const handleChangeType = (e) => {
+        setType(e.target.value);
+    };
+
+    const handleChangeTags = (e) => {
+        setTags(e.target.value);
     };
 
     const loadImg = (e) => {
@@ -90,12 +143,49 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                             type='text'
                             value={name}
                             onChange={handleChangeName}></input>
-                        <label htmlFor='origin'>Nguồn gốc</label>
+
+                        <label htmlFor='origin'>Xuất xứ</label>
                         <input
                             id='origin'
                             type='text'
                             value={origin}
                             onChange={handleChangeOrigin}></input>
+
+                        <label htmlFor='weight'>Trọng lượng</label>
+                        <input
+                            id='weight'
+                            type='text'
+                            value={weight}
+                            onChange={handleChangeWeight}></input>
+
+                        <label htmlFor='volume'>Dung tích</label>
+                        <input
+                            id='volume'
+                            type='text'
+                            value={volume}
+                            onChange={handleChangeVolume}></input>
+
+                        <label htmlFor='quantity'>Số lượng</label>
+                        <input
+                            id='quantity'
+                            type='text'
+                            value={quantity}
+                            onChange={handleChangeQuantity}></input>
+
+                        <label htmlFor='productionDate'>Ngày sản xuất</label>
+                        <input
+                            id='productionDate'
+                            type='date'
+                            value={productionDate}
+                            onChange={handleChangeProductionDate}></input>
+
+                        <label htmlFor='expiryDate'>Ngày hết hạn</label>
+                        <input
+                            id='expiryDate'
+                            type='date'
+                            value={expiryDate}
+                            onChange={handleChangeExpiry}></input>
+
                         <label>Mô tả</label>
                         <CKEditor
                             editor={ClassicEditor}
@@ -104,33 +194,40 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                                 // You can store the "editor" and use when it is needed.
                                 console.log("Editor is ready to use!", editor);
                             }}
-                            onChange={(event) => {
-                                console.log(event);
-                            }}
-                            onBlur={(event, editor) => {
-                                console.log("Blur.", editor);
-                            }}
-                            onFocus={(event, editor) => {
-                                console.log("Focus.", editor);
-                            }}
+                            onChange={handleChangeDescription}
                         />
+
                         <label htmlFor='prod-sell-price'>Giá bán</label>
                         <input
                             id='prod-sell-price'
                             type='text'
-                            value={price}></input>
+                            value={price}
+                            onChange={handleChangePrice}></input>
+
                         <label htmlFor='prod-buy-price'>Giá mua</label>
                         <input
                             id='prod-buy-price'
                             type='text'
-                            value={cost}></input>
-                        <label htmlFor='prod-category'>Danh mục</label>
+                            value={cost}
+                            onChange={handleChangeCost}></input>
+
+                        <label htmlFor='prod-category'>Loại sản phẩm</label>
+                        {/* options hear */}
+                        {/* <select>
+                            <option></option>
+                        </select> */}
                         <input
                             id='prod-category'
                             type='text'
-                            value={type}></input>
+                            value={type}
+                            onChange={handleChangeType}></input>
+
                         <label htmlFor='prod-tag'>Tag</label>
-                        <input id='prod-tag' type='text' value={tags}></input>
+                        <input
+                            id='prod-tag'
+                            type='text'
+                            value={tags}
+                            onChange={handleChangeTags}></input>
                     </div>
                     <div className='edit-prod-btn-wrapper'>
                         <button className='cancel-btn'>Hủy bỏ</button>
