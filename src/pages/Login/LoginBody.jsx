@@ -13,7 +13,7 @@ const LoginBody = () => {
         formData.append("username", username);
         formData.append("password", password);
 
-        fetch("http://localhost:3000/v1/login", {
+        fetch(`${process.env.REACT_APP_HOST_IP}/login`, {
             method: "POST",
             headers: {
                 Accept: "application/json",

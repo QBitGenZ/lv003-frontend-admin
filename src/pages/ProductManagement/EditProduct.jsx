@@ -14,14 +14,16 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     const [price, setPrice] = useState(0);
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState("");
-    const [tags, setTags] = useState(["bla bla", "blaaaala"]);
-    const [images, setImages] = useState("");
+    let [tags, setTags] = useState('');
+    const [images, setImages] = useState([]);
     const [productionDate, setProductionDate] = useState("");
     const [expiryDate, setExpiryDate] = useState("");
     const [sale, setSale] = useState("");
 
+    const [types, setTypes] = useState([]);
+
     useEffect(() => {
-        fetch("http://localhost:3000/v1/product-types", {
+        fetch(`${process.env.REACT_APP_HOST_IP}/product-types`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -29,9 +31,13 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             },
         })
             .then((res) => res.json())
-            .then((data) => console.log(data))
+            .then((data) => {
+                setType(data?.data[0]?._id)
+                setTypes(data.data)
+            })
             .catch((error) => console.log(error));
     }, []);
+
 
     const handleSubmit = () => {
         console.log("name: " + name);
@@ -44,10 +50,15 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         formData.append("description", description);
         formData.append("price", price);
         formData.append("cost", cost);
-        formData.append("tags", tags);
-        formData.append("images", images);
+        formData.append("tags", JSON.stringify(tags.split(' ')));
+        images.forEach((image, index) => {
+            formData.append(`images`, image);
+        });
 
-        fetch("http://localhost:3000/v1/products", {
+
+        console.log(JSON.stringify(tags.split(' ')))
+
+        fetch( `${process.env.REACT_APP_HOST_IP}/products`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -108,6 +119,12 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         setTags(e.target.value);
     };
 
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        setImages(files);
+    };
+
+
     const loadImg = (e) => {
         const [file] = e.target.files;
         if (file) {
@@ -122,14 +139,12 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             </div>
             <div className='edit-prod-body'>
                 <div className='edit-prod-body-left'>
-                    <input id='imgFile' type='file' onChange={loadImg}></input>
+                    <input id='imgFile' type='file' onChange={handleImageChange} multiple></input>
                     <label htmlFor='imgFile' className='input-img'>
                         <img
                             id='inputImg'
                             src={
-                                images
-                                    ? URL.createObjectURL(images)
-                                    : process.env.PUBLIC_URL +
+                             process.env.PUBLIC_URL +
                                       "/images/input_img.png"
                             }></img>
                     </label>
@@ -213,14 +228,11 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
 
                         <label htmlFor='prod-category'>Loại sản phẩm</label>
                         {/* options hear */}
-                        {/* <select>
-                            <option></option>
-                        </select> */}
-                        <input
-                            id='prod-category'
-                            type='text'
-                            value={type}
-                            onChange={handleChangeType}></input>
+                        <select id='prod-category' value={type} onChange={handleChangeType}>
+                            {types?.map(item => {
+                                return <option value={item?._id} label={item?.name} key={item?.id}/>
+                            })}
+                        </select>
 
                         <label htmlFor='prod-tag'>Tag</label>
                         <input
