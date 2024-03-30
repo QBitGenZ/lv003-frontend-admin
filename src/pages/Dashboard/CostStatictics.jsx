@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 
 import revenueStatistics from "../../common/statisticsData/revenueData.json";
 import expenseStatistics from "../../common/statisticsData/expenseData.json";
+import { useEffect, useState } from "react";
 
 Chart.register(...registerables);
 
@@ -14,16 +15,36 @@ defaults.plugins.title.font.size = 25;
 defaults.plugins.title.color = "black";
 
 const CostStatistics = () => {
+    // const [revenueStatistics, setRevenueStatistics] = useState([]);
+
+    // useEffect(() => {
+    //     fetch(`${process.env.REACT_APP_HOST_IP}/orders`, {
+    //         method: "GET",
+    //         headers: {
+    //             Accept: "application/json",
+    //             Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //         },
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setRevenueStatistics(data?.data);
+    //             console.log("data " + data?.data);
+    //         })
+    //         .catch((error) => console.log(error));
+    // }, []);
+
+    // console.log("revenueStatistics " + revenueStatistics);
+
     const data = {
-        labels: revenueStatistics.map((data) => data.label),
+        labels: expenseStatistics?.map((data) => data.label),
         datasets: [
             {
                 label: "Doanh thu",
-                data: revenueStatistics.map((data) => data.value),
+                data: revenueStatistics?.map((data) => data?.value),
             },
             {
                 label: "Chi phí",
-                data: expenseStatistics.map((data) => data.value),
+                data: expenseStatistics?.map((data) => data.value),
             },
         ],
     };

@@ -97,6 +97,10 @@
     align-items: center;
 }
 
+#ProductList td.prod-name .prod-name-container img {
+    width: 10%;
+}
+
 /* end ProductList */
 
 #EditProduct {

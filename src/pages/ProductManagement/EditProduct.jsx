@@ -14,7 +14,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     const [price, setPrice] = useState(0);
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState("");
-    let [tags, setTags] = useState('');
+    let [tags, setTags] = useState("");
     const [images, setImages] = useState([]);
     const [productionDate, setProductionDate] = useState("");
     const [expiryDate, setExpiryDate] = useState("");
@@ -32,12 +32,11 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setType(data?.data[0]?._id)
-                setTypes(data.data)
+                setType(data?.data[0]?._id);
+                setTypes(data.data);
             })
             .catch((error) => console.log(error));
     }, []);
-
 
     const handleSubmit = () => {
         console.log("name: " + name);
@@ -50,15 +49,14 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         formData.append("description", description);
         formData.append("price", price);
         formData.append("cost", cost);
-        formData.append("tags", JSON.stringify(tags.split(' ')));
+        formData.append("tags", JSON.stringify(tags.split(" ")));
         images.forEach((image, index) => {
             formData.append(`images`, image);
         });
 
+        console.log(JSON.stringify(tags.split(" ")));
 
-        console.log(JSON.stringify(tags.split(' ')))
-
-        fetch( `${process.env.REACT_APP_HOST_IP}/products`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/products`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -124,7 +122,6 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         setImages(files);
     };
 
-
     const loadImg = (e) => {
         const [file] = e.target.files;
         if (file) {
@@ -139,13 +136,16 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             </div>
             <div className='edit-prod-body'>
                 <div className='edit-prod-body-left'>
-                    <input id='imgFile' type='file' onChange={handleImageChange} multiple></input>
+                    <input
+                        id='imgFile'
+                        type='file'
+                        onChange={handleImageChange}
+                        multiple></input>
                     <label htmlFor='imgFile' className='input-img'>
                         <img
                             id='inputImg'
                             src={
-                             process.env.PUBLIC_URL +
-                                      "/images/input_img.png"
+                                process.env.PUBLIC_URL + "/images/input_img.png"
                             }></img>
                     </label>
                 </div>
@@ -227,10 +227,18 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                             onChange={handleChangeCost}></input>
 
                         <label htmlFor='prod-category'>Loại sản phẩm</label>
-                        {/* options hear */}
-                        <select id='prod-category' value={type} onChange={handleChangeType}>
-                            {types?.map(item => {
-                                return <option value={item?._id} label={item?.name} key={item?.id}/>
+                        <select
+                            id='prod-category'
+                            value={type}
+                            onChange={handleChangeType}>
+                            {types?.map((item) => {
+                                return (
+                                    <option
+                                        value={item?._id}
+                                        label={item?.name}
+                                        key={item?.id}
+                                    />
+                                );
                             })}
                         </select>
 
