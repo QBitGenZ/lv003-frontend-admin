@@ -1,25 +1,24 @@
-import { useState } from "react";
-import { Orders } from "../../common/json/Orders";
 import OrderListItem from "./OrderListItem";
-import { useEffect } from "react";
+import {useEffect, useState} from 'react';
 
 const OrderList = () => {
-    const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/orders`, {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setOrders(data?.data);
-            })
-            .catch((error) => console.log(error));
-    }, []);
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  const getOrders = () => {
+    fetch(`${process.env.REACT_APP_HOST_IP}/orders/admin/`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(data => setProducts(data.data))
+      .catch(error => alert(error));
+  }
 
     return (
         <div id='OrderList'>
@@ -33,8 +32,15 @@ const OrderList = () => {
                     <th>Lợi nhuận</th>
                     <th>Trạng thái</th>
                 </tr>
-                {orders.map((item) => (
-                    <OrderListItem order={item} />
+                {products.map((item) => (
+                    <OrderListItem
+                        orderNumber={item._id}
+                        orderTime={item.created_at}
+                        orderCustomer={item.user.fullname}
+                        orderCost={item.orderCost}
+                        orderProfit={item.orderProfit}
+                        orderStatus={item.orderStatus}
+                    />
                 ))}
             </table>
         </div>
