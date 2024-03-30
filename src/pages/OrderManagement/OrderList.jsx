@@ -1,24 +1,26 @@
 import OrderListItem from "./OrderListItem";
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 
 const OrderList = () => {
-  const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    getOrders();
-  }, []);
+    useEffect(() => {
+        getOrders();
+    }, []);
 
-  const getOrders = () => {
-    fetch(`${process.env.REACT_APP_HOST_IP}/orders/admin/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        Accept: 'application/json',
-      }
-    })
-      .then(res => res.json())
-      .then(data => setProducts(data.data))
-      .catch(error => alert(error));
-  }
+    const getOrders = () => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/orders/admin/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Accept: "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => setProducts(data.data))
+            .catch((error) => alert(error));
+    };
+
+    let price = 0;
 
     return (
         <div id='OrderList'>
@@ -29,19 +31,24 @@ const OrderList = () => {
                     <th>Thời gian đặt hàng</th>
                     <th>Khách hàng</th>
                     <th>Giá trị đơn hàng</th>
-                    <th>Lợi nhuận</th>
+                    {/* <th>Lợi nhuận</th> */}
                     <th>Trạng thái</th>
                 </tr>
-                {products.map((item) => (
-                    <OrderListItem
-                        orderNumber={item._id}
-                        orderTime={item.created_at}
-                        orderCustomer={item.user.fullname}
-                        orderCost={item.orderCost}
-                        orderProfit={item.orderProfit}
-                        orderStatus={item.orderStatus}
-                    />
-                ))}
+                {products?.map((product) => {
+                    product?.items?.map((item) => {
+                        price += item?.product?.price * item?.quantity;
+                    });
+                    return (
+                        <OrderListItem
+                            orderNumber={product._id}
+                            orderTime={product.created_at}
+                            orderCustomer={product.user.fullname}
+                            orderCost={price}
+                            // orderProfit={product.orderProfit}
+                            orderStatus={product.orderStatus}
+                        />
+                    );
+                })}
             </table>
         </div>
     );

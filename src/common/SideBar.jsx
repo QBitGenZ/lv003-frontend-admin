@@ -25,10 +25,6 @@ const SideBar = ({ currentPage }) => {
         setPage("orderMng");
     };
 
-    const handlePostMngCLicked = () => {
-        setPage("postMng");
-    };
-
     return (
         <div id='SideBar'>
             <div className='brand-logo'>
@@ -88,16 +84,6 @@ const SideBar = ({ currentPage }) => {
                     onClick={handleOrderMngCLicked}>
                     <i class='fa-solid fa-box'></i>
                     <span>Quản lý đơn hàng</span>
-                </Link>
-                <Link
-                    to={"/admin/post-management"}
-                    className={
-                        (page === "postMng" ? "active " : "") +
-                        "nav-item nav-article"
-                    }
-                    onClick={handlePostMngCLicked}>
-                    <i class='fa-solid fa-envelopes-bulk'></i>
-                    <span>Quản lý bài đăng</span>
                 </Link>
             </div>
             <div className='logout-container'>

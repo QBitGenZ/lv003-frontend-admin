@@ -28,9 +28,6 @@ root.render(
             <Route
                 path='/admin/order-management'
                 element={<OrderManagement />}></Route>
-            <Route
-                path='/admin/post-management'
-                element={<Dashboard />}></Route>
         </Routes>
     </BrowserRouter>
 );
