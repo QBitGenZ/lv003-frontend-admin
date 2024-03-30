@@ -1,7 +1,25 @@
-import { Orders } from "../../common/json/Orders";
 import OrderListItem from "./OrderListItem";
+import {useEffect, useState} from 'react';
 
 const OrderList = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  const getOrders = () => {
+    fetch(`${process.env.REACT_APP_HOST_IP}/orders/admin/`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(data => setProducts(data.data))
+      .catch(error => alert(error));
+  }
+
     return (
         <div id='OrderList'>
             <div className='order-list-title'>Danh sách đơn hàng</div>
@@ -14,11 +32,11 @@ const OrderList = () => {
                     <th>Lợi nhuận</th>
                     <th>Trạng thái</th>
                 </tr>
-                {Orders.map((item) => (
+                {products.map((item) => (
                     <OrderListItem
-                        orderNumber={item.orderNumber}
-                        orderTime={item.orderTime}
-                        orderCustomer={item.orderCustomer}
+                        orderNumber={item._id}
+                        orderTime={item.created_at}
+                        orderCustomer={item.user.fullname}
                         orderCost={item.orderCost}
                         orderProfit={item.orderProfit}
                         orderStatus={item.orderStatus}
