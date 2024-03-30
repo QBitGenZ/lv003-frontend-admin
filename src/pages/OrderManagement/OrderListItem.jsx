@@ -1,7 +1,14 @@
-import { useEffect } from "react";
+import CurrencyFormat from "react-currency-format";
 
-const OrderListItem = ({ order }) => {
-    const dbDate = order?.created_at;
+const OrderListItem = ({
+    orderNumber,
+    orderTime,
+    orderCustomer,
+    orderCost,
+    // orderProfit,
+    orderStatus,
+}) => {
+    const dbDate = "2024-03-28T15:14:28.820Z";
 
     // Chuyển đổi sang đối tượng Date
     const dateObj = new Date(dbDate);
@@ -11,17 +18,22 @@ const OrderListItem = ({ order }) => {
         dateObj.getMonth() + 1
     }/${dateObj.getFullYear()} ${dateObj.getHours()}:${dateObj.getMinutes()}:${dateObj.getSeconds()}`;
 
-    let orderCost = 0;
-    let orderProfit = 0;
-
     return (
         <tr>
-            <td>#{order?._id}</td>
+            <td>{orderNumber}</td>
             <td>{formattedDate}</td>
-            <td>{order?.user}</td>
-            <td>{orderCost}</td>
-            <td>{orderProfit}</td>
-            <td>{"Đã giao"}</td>
+            <td>{orderCustomer}</td>
+            <td>
+                <CurrencyFormat
+                    value={orderCost}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    suffix={"VND"}
+                    renderText={(value) => <div>{value}</div>}
+                />
+            </td>
+            {/* <td>{orderProfit}</td> */}
+            <td>{orderStatus}</td>
             <td>
                 <i class='fa-solid fa-angle-down'></i>
             </td>

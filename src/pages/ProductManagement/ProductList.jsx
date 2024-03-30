@@ -1,25 +1,27 @@
-import {useEffect, useState} from 'react';
-import ProductItem from './ProductItem';
+import { useEffect, useState } from "react";
+import ProductItem from "./ProductItem";
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        getProducts()
+        getProducts();
     }, []);
 
     const getProducts = () => {
         fetch(`${process.env.REACT_APP_HOST_IP}/products/`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-                Accept: 'application/json',
-            }
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Accept: "application/json",
+            },
         })
-          .then(res => res.status === 200 ? res.json() : Promise.reject(res.json()))
-          .then(data => setProducts(data.data))
-          .catch(error => alert(error));
-    }
+            .then((res) =>
+                res.status === 200 ? res.json() : Promise.reject(res.json())
+            )
+            .then((data) => setProducts(data.data))
+            .catch((error) => alert(error));
+    };
 
     return (
         <div id='ProductList'>
@@ -28,7 +30,7 @@ const ProductList = () => {
                     <th>Mã SP</th>
                     <th>Sản phẩm</th>
                     <th>Giá bán</th>
-                    <th>Giá mua</th>
+                    {/* <th>Giá mua</th> */}
                     <th>Tồn kho</th>
                     <th>Danh mục</th>
                     <th>Chỉnh sửa</th>
