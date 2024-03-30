@@ -139,13 +139,19 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                     <input
                         id='imgFile'
                         type='file'
-                        onChange={handleImageChange}
+                        onChange={() => {
+                            handleImageChange();
+                            // loadImg();
+                        }}
                         multiple></input>
                     <label htmlFor='imgFile' className='input-img'>
                         <img
                             id='inputImg'
                             src={
-                                process.env.PUBLIC_URL + "/images/input_img.png"
+                                images
+                                    ? URL.createObjectURL(images)
+                                    : process.env.PUBLIC_URL +
+                                      "/images/input_img.png"
                             }></img>
                     </label>
                 </div>
