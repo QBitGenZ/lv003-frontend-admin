@@ -65,7 +65,10 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             body: formData,
         })
             .then((res) => res.json())
-            .then((data) => console.log("ok"))
+            .then((data) => {
+                console.log("ok");
+                alert("Thêm sản phẩm thành công");
+            })
             .catch((error) => console.log(error));
     };
 
@@ -122,12 +125,12 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         setImages(files);
     };
 
-    const loadImg = (e) => {
-        const [file] = e.target.files;
-        if (file) {
-            document.getElementById("inputImg").src = URL.createObjectURL(file);
-        }
-    };
+    // const loadImg = (e) => {
+    //     const [file] = e.target.files;
+    //     if (file) {
+    //         document.getElementById("inputImg").src = URL.createObjectURL(file);
+    //     }
+    // };
 
     return (
         <div id='EditProduct'>
@@ -148,10 +151,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                         <img
                             id='inputImg'
                             src={
-                                images
-                                    ? URL.createObjectURL(images)
-                                    : process.env.PUBLIC_URL +
-                                      "/images/input_img.png"
+                                process.env.PUBLIC_URL + "/images/input_img.png"
                             }></img>
                     </label>
                 </div>
