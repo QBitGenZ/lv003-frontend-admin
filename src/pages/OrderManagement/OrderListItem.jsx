@@ -1,4 +1,6 @@
+import { useState } from "react";
 import CurrencyFormat from "react-currency-format";
+import QRCode from "react-qr-code";
 
 const OrderListItem = ({
     orderNumber,
@@ -8,24 +10,44 @@ const OrderListItem = ({
     // orderProfit,
     orderStatus,
 }) => {
-    const dbDate = "2024-03-28T15:14:28.820Z";
-
     // Chuyển đổi sang đối tượng Date
-    const dateObj = new Date(dbDate);
+    const dateObj = new Date(orderTime);
 
     // Định dạng lại thời gian
     const formattedDate = `${dateObj.getDate()}/${
         dateObj.getMonth() + 1
     }/${dateObj.getFullYear()} ${dateObj.getHours()}:${dateObj.getMinutes()}:${dateObj.getSeconds()}`;
 
+    const status = [
+        "Chờ xác nhận",
+        "Đang chuẩn bị",
+        "Đang vận chuyển",
+        "Đã giao",
+    ];
+
+    const [isCanceled, setIsCanceled] = useState(false);
+
+    const handleCancel = () => {
+        setIsCanceled(true);
+    };
+
     return (
         <tr>
-            <td>{orderNumber}</td>
+            <td>
+                <QRCode
+                    className='qrcode'
+                    size={32}
+                    value={orderNumber}
+                    viewBox={`0 0 256 256`}
+                />
+            </td>
             <td>{formattedDate}</td>
             <td>{orderCustomer}</td>
             <td>
                 <CurrencyFormat
-                    value={orderCost}
+                    value={
+                        orderCost + orderCost * 0.1 + (orderCost ? 25000 : 0)
+                    }
                     displayType={"text"}
                     thousandSeparator={true}
                     suffix={"VND"}
@@ -33,9 +55,15 @@ const OrderListItem = ({
                 />
             </td>
             {/* <td>{orderProfit}</td> */}
-            <td>{orderStatus}</td>
             <td>
-                <i class='fa-solid fa-angle-down'></i>
+                <select disabled={isCanceled}>
+                    {status.map((value) => (
+                        <option value={value}>{value}</option>
+                    ))}
+                </select>
+            </td>
+            <td>
+                <i class='fa-solid fa-ban cancel' onClick={handleCancel}></i>
             </td>
         </tr>
     );

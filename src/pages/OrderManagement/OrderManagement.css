@@ -4,9 +4,9 @@
     padding: 32px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: start;
-    width: 130vw;
+    width: 100vw;
 }
 
 #OrderFilter {
@@ -51,7 +51,7 @@
     border-radius: 10px;
     background: #fff;
     box-shadow: 0px 3.5px 10px 0px #b9e3fc;
-    width: 75%;
+    width: fit-content;
 }
 
 #OrderList table tr:nth-child(even) {
@@ -74,4 +74,18 @@
     white-space: nowrap;
     padding: 12px 24px;
     text-align: center;
+}
+
+#OrderList .change-status:hover {
+    font-size: 30px;
+    background-color: #fff;
+    border-radius: 100%;
+    padding: 6px 12px;
+}
+
+#OrderList .cancel:hover {
+    font-size: 30px;
+    background-color: red;
+    border-radius: 100%;
+    padding: 8px;
 }

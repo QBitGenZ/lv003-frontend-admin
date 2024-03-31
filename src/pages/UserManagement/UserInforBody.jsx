@@ -1,35 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserInforData } from "../../common/json/UserInfor";
 import UserInfor from "./UserInfor";
 import UserInforDetail from "./UserInforDetail";
 
 const UserInforBody = () => {
     const [showUserInforDetail, setShowUserInforDetail] = useState(false);
-    const [userId, setUserId] = useState();
+    const [users, setUsers] = useState([]);
+    const [userId, setUserId] = useState("");
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/user`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setUsers(data?.data);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     const handleUserClicked = (event) => {
         setShowUserInforDetail(true);
         setUserId(event.currentTarget.id);
     };
 
-    const user = UserInforData.find((obj) => obj.userID === userId);
+    const user = users.find((obj) => obj._id === userId);
 
     const handleBackButtonClicked = () => {
         setShowUserInforDetail(false);
-        console.log(user);
     };
 
     return showUserInforDetail ? (
-        <UserInforDetail
-            userID={user?.userID}
-            userName={user?.userName}
-            userAge={user?.userAge}
-            userGender={user?.userGender}
-            userEmail={user?.userEmail}
-            userPhoneNumber={user?.userPhoneNumber}
-            userAddress={user?.userAddress}
-            onClickBack={handleBackButtonClicked}
-        />
+        <UserInforDetail user={user} onClickBack={handleBackButtonClicked} />
     ) : (
         <div id='UserInforBody'>
             <div className='user-infor-title'>Danh sách người dùng</div>
@@ -41,13 +50,13 @@ const UserInforBody = () => {
                     <th>GIới tính</th>
                     <th>Tuổi</th>
                 </tr>
-                {UserInforData.map((user) => (
+                {users.map((user) => (
                     <UserInfor
-                        userID={user?.userID}
-                        userName={user?.userName}
-                        userPhone={user?.userPhoneNumber}
-                        userGender={user?.userGender}
-                        userAge={user?.userAge}
+                        userID={user?._id}
+                        userName={user?.fullname}
+                        userPhone={user?.phone}
+                        userGender={user?.gender}
+                        userAge={user?.birthday}
                         onClick={handleUserClicked}
                     />
                 ))}

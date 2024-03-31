@@ -44,8 +44,11 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         const formData = new FormData();
 
         formData.append("name", name);
+        formData.append("brand", brand);
         formData.append("type", type);
         formData.append("origin", origin);
+        formData.append("volume", volume);
+        formData.append("quantity", quantity);
         formData.append("description", description);
         formData.append("price", price);
         formData.append("cost", cost);
@@ -74,6 +77,10 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
 
     const handleChangeName = (e) => {
         setName(e.target.value);
+    };
+
+    const handleChangeBrand = (e) => {
+        setBrand(e.target.value);
     };
 
     const handleChangeOrigin = (e) => {
@@ -123,14 +130,21 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         setImages(files);
+        loadImg(files); // Truyền danh sách các tệp tin đã chọn vào hàm loadImg
     };
 
-    // const loadImg = (e) => {
-    //     const [file] = e.target.files;
-    //     if (file) {
-    //         document.getElementById("inputImg").src = URL.createObjectURL(file);
-    //     }
-    // };
+    const loadImg = (files) => {
+        // Thay đổi tham số của hàm loadImg để nhận danh sách các tệp tin
+        const file = files[0]; // Chỉ lấy ảnh đầu tiên từ danh sách các tệp tin
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const imageDataUrl = event.target.result;
+                document.getElementById("inputImg").src = imageDataUrl; // Đặt src của ảnh là đường dẫn dữ liệu của ảnh mới
+            };
+            reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL dữ liệu
+        }
+    };
 
     return (
         <div id='EditProduct'>
@@ -142,10 +156,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                     <input
                         id='imgFile'
                         type='file'
-                        onChange={() => {
-                            handleImageChange();
-                            // loadImg();
-                        }}
+                        onChange={handleImageChange}
                         multiple></input>
                     <label htmlFor='imgFile' className='input-img'>
                         <img
@@ -164,6 +175,13 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                             type='text'
                             value={name}
                             onChange={handleChangeName}></input>
+
+                        <label htmlFor='brand'>Nhãn hàng</label>
+                        <input
+                            id='brand'
+                            type='text'
+                            value={brand}
+                            onChange={handleChangeBrand}></input>
 
                         <label htmlFor='origin'>Xuất xứ</label>
                         <input

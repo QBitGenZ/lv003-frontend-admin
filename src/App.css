@@ -25,3 +25,8 @@ button {
     height: 300px;
     overflow-y: auto;
 }
+
+.qrcode {
+    width: 50%;
+    height: auto;
+}

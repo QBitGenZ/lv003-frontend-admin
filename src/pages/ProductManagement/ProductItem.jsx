@@ -1,4 +1,5 @@
 import CurrencyFormat from "react-currency-format";
+import QRCode from "react-qr-code";
 
 const ProductItem = ({
     prodId,
@@ -23,7 +24,14 @@ const ProductItem = ({
 
     return (
         <tr>
-            <td>{prodId}</td>
+            <td>
+                <QRCode
+                    size={256}
+                    className='qrcode'
+                    value={prodId}
+                    viewBox={`0 0 256 256`}
+                />
+            </td>
             <td className='prod-name'>
                 <div className='prod-name-container'>
                     <img

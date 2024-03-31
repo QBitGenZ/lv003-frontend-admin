@@ -27,7 +27,7 @@ const ProductList = () => {
         <div id='ProductList'>
             <table>
                 <tr>
-                    <th>Mã SP</th>
+                    <th>Mã Sản Phẩm</th>
                     <th>Sản phẩm</th>
                     <th>Giá bán</th>
                     {/* <th>Giá mua</th> */}
