@@ -1,3 +1,5 @@
+import QRCode from "react-qr-code";
+
 const UserInfor = ({
     userID,
     userName,
@@ -6,13 +8,35 @@ const UserInfor = ({
     userAge,
     onClick,
 }) => {
+    function calculateAge(dateString) {
+        const birthday = new Date(dateString);
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const birthYear = birthday.getFullYear();
+
+        console.log("current: " + currentYear);
+        console.log("birth: " + birthYear);
+
+        // Tính tuổi theo năm
+        let age = currentYear - birthYear;
+
+        return age;
+    }
+
     return (
         <tr id={userID} onClick={onClick}>
-            <td>{userID}</td>
+            <td>
+                <QRCode
+                    className='qrcode'
+                    size={32}
+                    value={userID}
+                    viewBox={`0 0 256 256`}
+                />
+            </td>
             <td>{userName}</td>
             <td>{userPhone}</td>
             <td>{userGender}</td>
-            <td>{userAge}</td>
+            <td>{calculateAge(userAge)}</td>
         </tr>
     );
 };

@@ -33,6 +33,7 @@ const OrderList = () => {
                     <th>Giá trị đơn hàng</th>
                     {/* <th>Lợi nhuận</th> */}
                     <th>Trạng thái</th>
+                    <th>Hủy đơn</th>
                 </tr>
                 {products?.map((product) => {
                     product?.items?.map((item) => {
@@ -40,12 +41,12 @@ const OrderList = () => {
                     });
                     return (
                         <OrderListItem
-                            orderNumber={product._id}
-                            orderTime={product.created_at}
-                            orderCustomer={product.user.fullname}
+                            orderNumber={product?._id}
+                            orderTime={product?.created_at}
+                            orderCustomer={product?.user?.fullname}
                             orderCost={price}
-                            // orderProfit={product.orderProfit}
-                            orderStatus={product.orderStatus}
+                            // orderProfit={product?.orderProfit}
+                            orderStatus={product?.status}
                         />
                     );
                 })}

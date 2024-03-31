@@ -1,16 +1,7 @@
 import { useState } from "react";
 import UserViolation from "./UserViolation";
 
-const UserInforDetail = ({
-    userID,
-    userName,
-    userAge,
-    userGender,
-    userEmail,
-    userPhoneNumber,
-    userAddress,
-    onClickBack,
-}) => {
+const UserInforDetail = ({ user, onClickBack }) => {
     const [currentTab, setCurrentTab] = useState("information");
 
     const handleChangeViolationTab = () => {
@@ -20,6 +11,21 @@ const UserInforDetail = ({
     const handleChangeInformationTab = () => {
         setCurrentTab("information");
     };
+
+    function calculateAge(dateString) {
+        const birthday = new Date(dateString);
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const birthYear = birthday.getFullYear();
+
+        console.log("current: " + currentYear);
+        console.log("birth: " + birthYear);
+
+        // Tính tuổi theo năm
+        let age = currentYear - birthYear;
+
+        return age;
+    }
 
     return (
         <div id='UserInforDetail'>
@@ -36,8 +42,8 @@ const UserInforDetail = ({
                 <div className='user-infor-detail-body-right'>
                     <div className='user-detail-right-top'>
                         <div className='user-name-wrapper'>
-                            <div className='user-name'>{userName}</div>
-                            <div className='user-email'>{userEmail}</div>
+                            <div className='user-name'>{user?.fullname}</div>
+                            <div className='user-email'>{user?.email}</div>
                         </div>
                         <div className='delete-user-btn'>Xóa tài khoản</div>
                     </div>
@@ -66,31 +72,31 @@ const UserInforDetail = ({
                             <table className='user-detail-bot-body'>
                                 <tr className='user-id'>
                                     <td className='key'>UID: </td>
-                                    <td>{userID}</td>
+                                    <td>{user?._id}</td>
                                 </tr>
                                 <tr className='user-name'>
                                     <td className='key'>Họ tên: </td>
-                                    <td>{userName}</td>
+                                    <td>{user?.fullname}</td>
                                 </tr>
                                 <tr className='user-age'>
                                     <td className='key'>Tuổi: </td>
-                                    <td>{userAge}</td>
+                                    <td>{calculateAge(user?.birthday)}</td>
                                 </tr>
                                 <tr className='user-gender'>
                                     <td className='key'>Giới tính: </td>
-                                    <td>{userGender}</td>
+                                    <td>{user?.gender}</td>
                                 </tr>
                                 <tr className='user-email'>
                                     <td className='key'>Email: </td>
-                                    <td>{userEmail}</td>
+                                    <td>{user?.email}</td>
                                 </tr>
                                 <tr className='user-phone'>
                                     <td className='key'>SĐT: </td>
-                                    <td>{userPhoneNumber}</td>
+                                    <td>{user?.phone}</td>
                                 </tr>
                                 <tr className='user-address'>
                                     <td className='key'>Địa chỉ: </td>
-                                    <td>{userAddress}</td>
+                                    <td>{user?.address}</td>
                                 </tr>
                             </table>
                         ) : (
