@@ -17,8 +17,9 @@
 }
 
 #UserInforBody .user-infor-body * {
-    padding: 12px 42px;
+    padding: 6px 24px;
     border: 0;
+    /* margin: 0 auto; */
 }
 
 #UserInforBody .user-infor-body th,
