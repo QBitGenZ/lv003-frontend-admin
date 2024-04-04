@@ -4,7 +4,7 @@ import OrderList from "./OrderList";
 const OrderBody = () => {
     return (
         <div id='OrderBody'>
-            <OrderFilter />
+            {/* <OrderFilter /> */}
             <OrderList />
         </div>
     );

@@ -31,6 +31,21 @@ const OrderListItem = ({
         setIsCanceled(true);
     };
 
+    const handleChangeStatus = (e) => {
+        const newStatus = e.target.value;
+
+        fetch(`${process.env.REACT_APP_HOST_IP}/orders/${orderNumber}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({
+                status: newStatus,
+            }),
+        });
+    };
+
     return (
         <tr>
             <td>
@@ -56,7 +71,7 @@ const OrderListItem = ({
             </td>
             {/* <td>{orderProfit}</td> */}
             <td>
-                <select disabled={isCanceled}>
+                <select disabled={isCanceled} onChange={handleChangeStatus}>
                     {status.map((value) => (
                         <option value={value}>{value}</option>
                     ))}
