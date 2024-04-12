@@ -21,8 +21,14 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     const [sale, setSale] = useState("");
 
     const [types, setTypes] = useState([]);
+    const [brands, setBrands] = useState([]);
 
     useEffect(() => {
+        getProductTypes();
+        getBrand();
+    }, []);
+
+    const getProductTypes = () => {
         fetch(`${process.env.REACT_APP_HOST_IP}/product-types`, {
             method: "GET",
             headers: {
@@ -36,7 +42,23 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                 setTypes(data.data);
             })
             .catch((error) => console.log(error));
-    }, []);
+    };
+
+    const getBrand = () => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/brands`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setBrands(data?.data);
+                setBrand(data?.data[0]?._id);
+            })
+            .catch((error) => console.log(error));
+    };
 
     const handleSubmit = () => {
         console.log("name: " + name);
@@ -71,6 +93,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             .then((data) => {
                 console.log("ok");
                 alert("Thêm sản phẩm thành công");
+                window.location.reload();
             })
             .catch((error) => console.log(error));
     };
@@ -107,8 +130,9 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         setExpiryDate(e.target.value);
     };
 
-    const handleChangeDescription = (e) => {
-        setDescription(e.target.value);
+    const handleChangeDescription = (event, editor) => {
+        const data = editor.getData();
+        setDescription(data);
     };
 
     const handleChangePrice = (e) => {
@@ -177,11 +201,21 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                             onChange={handleChangeName}></input>
 
                         <label htmlFor='brand'>Nhãn hàng</label>
-                        <input
+                        <select
                             id='brand'
                             type='text'
                             value={brand}
-                            onChange={handleChangeBrand}></input>
+                            onChange={handleChangeBrand}>
+                            {brands?.map((item) => {
+                                return (
+                                    <option
+                                        value={item?._id}
+                                        label={item?.name}
+                                        key={item?._id}
+                                    />
+                                );
+                            })}
+                        </select>
 
                         <label htmlFor='origin'>Xuất xứ</label>
                         <input

@@ -17,11 +17,11 @@ const OrderList = () => {
             },
         })
             .then((res) => res.json())
-            .then((data) => setOrders(data.data))
+            .then((data) => setOrders(data?.data))
             .catch((error) => alert(error));
     };
 
-    let price = 0;
+    let price = 0.0;
 
     const status = [
         "Chờ xác nhận",
@@ -56,7 +56,12 @@ const OrderList = () => {
                 </tr>
                 {orders?.map((order) => {
                     order?.items?.map((item) => {
-                        price += item?.product?.price * item?.quantity;
+                        console.log(price);
+                        price += item?.product?.price * 1.0 * item?.quantity;
+                        console.log(`name: ${item?.product?.name}`);
+                        console.log(`price: ${item?.product?.price}`);
+                        console.log(`quantity: ${item?.quantity}`);
+                        console.log(`total: ${price}`);
                     });
                     return (
                         <OrderListItem
