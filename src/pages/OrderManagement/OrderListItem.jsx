@@ -26,6 +26,7 @@ const OrderListItem = ({
     ];
 
     const [isCanceled, setIsCanceled] = useState(false);
+    const [currentStatus, setCurrentStatus] = useState(orderStatus);
 
     const handleCancel = () => {
         setIsCanceled(true);
@@ -33,18 +34,27 @@ const OrderListItem = ({
 
     const handleChangeStatus = (e) => {
         const newStatus = e.target.value;
+        setCurrentStatus(newStatus);
 
+        updateChangeStatus(newStatus);
+    };
+
+    const updateChangeStatus = (newStatus) => {
         fetch(`${process.env.REACT_APP_HOST_IP}/orders/${orderNumber}`, {
             method: "PUT",
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 status: newStatus,
             }),
         });
     };
+
+    const totalOrderCost =
+        orderCost + orderCost * 0.1 + (orderCost ? 25000 : 0);
 
     return (
         <tr>
@@ -60,9 +70,7 @@ const OrderListItem = ({
             <td>{orderCustomer}</td>
             <td>
                 <CurrencyFormat
-                    value={
-                        orderCost + orderCost * 0.1 + (orderCost ? 25000 : 0)
-                    }
+                    value={totalOrderCost}
                     displayType={"text"}
                     thousandSeparator={true}
                     suffix={"VND"}
@@ -71,8 +79,11 @@ const OrderListItem = ({
             </td>
             {/* <td>{orderProfit}</td> */}
             <td>
-                <select disabled={isCanceled} onChange={handleChangeStatus}>
-                    {status.map((value) => (
+                <select
+                    disabled={isCanceled}
+                    onChange={handleChangeStatus}
+                    value={currentStatus}>
+                    {status?.map((value) => (
                         <option value={value}>{value}</option>
                     ))}
                 </select>

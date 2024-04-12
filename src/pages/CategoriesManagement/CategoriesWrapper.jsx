@@ -1,12 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CategoriesBody from "./CategoriesBody";
 import EditCategory from "./EditCategory";
 
 const CategoriesWrapper = () => {
     const [showEditCategories, setShowEditCategories] = useState(false);
 
+    const [categories, setCategories] = useState([]);
+
     const handleAddCategoryClicked = () => {
         setShowEditCategories(!showEditCategories);
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = () => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/product-types`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setCategories(data?.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
@@ -23,7 +48,10 @@ const CategoriesWrapper = () => {
                         Thêm mới
                     </div>
                 </div>
-                <CategoriesBody onClick={handleAddCategoryClicked} />
+                <CategoriesBody
+                    onClick={handleAddCategoryClicked}
+                    catagories={categories}
+                />
             </div>
             <div className='categories-right-side'>
                 {showEditCategories && (
