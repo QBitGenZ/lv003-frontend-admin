@@ -10,6 +10,7 @@ const ProductItem = ({
     prodInventory,
     prodCategory,
     getProducts,
+    handleClickEdit,
 }) => {
     const handleDelete = () => {
         fetch(`${process.env.REACT_APP_HOST_IP}/products/${prodId}`, {
@@ -26,7 +27,7 @@ const ProductItem = ({
         <tr>
             <td>
                 <QRCode
-                    size={256}
+                    size={64}
                     className='qrcode'
                     value={prodId}
                     viewBox={`0 0 256 256`}
@@ -52,11 +53,11 @@ const ProductItem = ({
             {/* <td>{prodBuyPrice}</td> */}
             <td>{prodInventory}</td>
             <td>{prodCategory}</td>
-            <td>
+            {/* <td onClick={handleClickEdit}>
                 Chỉnh sửa<i className='fa-solid fa-pencil'></i>
-            </td>
+            </td> */}
             <td onClick={handleDelete}>
-                Xóa<i className='fa-solid fa-pencil'></i>
+                Xóa<i class='fa-solid fa-trash'></i>
             </td>
         </tr>
     );

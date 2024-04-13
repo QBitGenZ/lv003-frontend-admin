@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 
-const ProductList = () => {
+const ProductList = ({ handleClickEdit }) => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const ProductList = () => {
                     {/* <th>Giá mua</th> */}
                     <th>Tồn kho</th>
                     <th>Danh mục</th>
-                    <th>Chỉnh sửa</th>
+                    {/* <th>Chỉnh sửa</th> */}
                 </tr>
                 {products?.map((item) => (
                     <ProductItem
@@ -45,6 +45,7 @@ const ProductList = () => {
                         prodInventory={item?.quantity}
                         prodCategory={item?.type?.name}
                         getProducts={getProducts}
+                        handleClickEdit={handleClickEdit}
                     />
                 ))}
             </table>
