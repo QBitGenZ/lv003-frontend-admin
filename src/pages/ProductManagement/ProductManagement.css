@@ -69,8 +69,12 @@
 }
 
 #ProductList table * {
-    padding: 8px 16px;
+    padding: 4px 8px;
     border: 0;
+}
+
+#ProductList table .prod-name {
+    width: 120%;
 }
 
 #ProductList table th,
