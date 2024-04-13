@@ -10,7 +10,7 @@ const ProductManagementBody = ({ handleAddProductClicked }) => {
                     onClick={handleAddProductClicked}>
                     Thêm sản phẩm
                 </div>
-                <ProductFilter />
+                {/* <ProductFilter /> */}
             </div>
             <div className='right-side'>
                 <ProductList />
