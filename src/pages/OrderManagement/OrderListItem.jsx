@@ -84,7 +84,9 @@ const OrderListItem = ({
                     onChange={handleChangeStatus}
                     value={currentStatus}>
                     {status?.map((value) => (
-                        <option value={value}>{value}</option>
+                        <option key={value} value={value}>
+                            {value}
+                        </option>
                     ))}
                 </select>
             </td>
