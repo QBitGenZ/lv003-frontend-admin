@@ -1,7 +1,10 @@
 import ProductFilter from "./ProductFilter";
 import ProductList from "./ProductList";
 
-const ProductManagementBody = ({ handleAddProductClicked }) => {
+const ProductManagementBody = ({
+    handleAddProductClicked,
+    handleClickEdit,
+}) => {
     return (
         <div id='ProductManagementBody'>
             <div className='left-side'>
@@ -10,10 +13,10 @@ const ProductManagementBody = ({ handleAddProductClicked }) => {
                     onClick={handleAddProductClicked}>
                     Thêm sản phẩm
                 </div>
-                <ProductFilter />
+                {/* <ProductFilter /> */}
             </div>
             <div className='right-side'>
-                <ProductList />
+                <ProductList handleClickEdit={handleClickEdit} />
             </div>
         </div>
     );

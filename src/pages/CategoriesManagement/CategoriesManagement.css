@@ -11,7 +11,7 @@
 
 #CategoriesWrapper {
     margin-top: 7%;
-    margin-left: 37%;
+    margin-left: 22%;
     margin-bottom: 5%;
     display: flex;
     flex-direction: row;
@@ -30,7 +30,7 @@
 
 #CategoriesWrapper .categories-right-side {
     width: 70%;
-    height: calc(100vh + 35px);
+    height: 100%;
 }
 
 #CategoriesWrapper .categories-left-side .categories-header {

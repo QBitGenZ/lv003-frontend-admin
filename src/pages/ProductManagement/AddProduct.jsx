@@ -2,7 +2,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useEffect, useState } from "react";
 
-const EditProduct = ({ product, handleBackButtonClicked }) => {
+const AddProduct = ({ product, handleBackButtonClicked }) => {
     const [name, setName] = useState("");
     const [type, setType] = useState({});
     const [origin, setOrigin] = useState("");
@@ -60,7 +60,35 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             .catch((error) => console.log(error));
     };
 
-    const handleSubmit = () => {
+    const getData = () => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/products/${product}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setName(data?.data?.name);
+                setBrand(data?.data?.brand);
+                setType(data?.data?.type);
+                setOrigin(data?.data?.origin);
+                setVolume(data?.data?.volume);
+                setQuantity(data?.data?.quantity);
+                setDescription(data?.data?.description);
+                setPrice(data?.data?.price);
+                setCost(data?.data?.cost);
+                setTags(data?.data?.tags);
+                setImages(data?.data?.images);
+                setProductionDate(data?.data?.productionDate);
+                setExpiryDate(data?.data?.expiryDate);
+            })
+            .catch((error) => console.log(error));
+    };
+
+    const updateData = () => {
         console.log("name: " + name);
 
         const formData = new FormData();
@@ -79,10 +107,8 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             formData.append(`images`, image);
         });
 
-        console.log(JSON.stringify(tags.split(" ")));
-
         fetch(`${process.env.REACT_APP_HOST_IP}/products`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -171,7 +197,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     };
 
     return (
-        <div id='EditProduct'>
+        <div id='AddProduct'>
             <div className='back-button' onClick={handleBackButtonClicked}>
                 <i class='fa-solid fa-chevron-left'></i> Trở về
             </div>
@@ -309,7 +335,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                     </div>
                     <div className='edit-prod-btn-wrapper'>
                         <button className='cancel-btn'>Hủy bỏ</button>
-                        <button className='approve-btn' onClick={handleSubmit}>
+                        <button className='approve-btn' onClick={updateData}>
                             Đồng ý
                         </button>
                     </div>
@@ -319,4 +345,4 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     );
 };
 
-export default EditProduct;
+export default AddProduct;
