@@ -33,7 +33,7 @@ const ProductList = ({ handleClickEdit }) => {
                     {/* <th>Giá mua</th> */}
                     <th>Tồn kho</th>
                     <th>Danh mục</th>
-                    {/* <th>Chỉnh sửa</th> */}
+                    <th>Chỉnh sửa</th>
                 </tr>
                 {products?.map((item) => (
                     <ProductItem

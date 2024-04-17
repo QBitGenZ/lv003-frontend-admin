@@ -1,17 +1,15 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import CurrencyFormat from "react-currency-format";
 import QRCode from "react-qr-code";
 
-const OrderListItem = ({
-    orderNumber,
-    orderTime,
-    orderCustomer,
-    orderCost,
-    // orderProfit,
-    orderStatus,
-}) => {
+const OrderListItem = ({ order, getData }) => {
+    useEffect(() => updateChangeStatus(), []);
+
+    const [isCanceled, setIsCanceled] = useState(false);
+    const [currentStatus, setCurrentStatus] = useState(order?.status);
+
     // Chuyển đổi sang đối tượng Date
-    const dateObj = new Date(orderTime);
+    const dateObj = new Date(order?.created_at);
 
     // Định dạng lại thời gian
     const formattedDate = `${dateObj.getDate()}/${
@@ -25,9 +23,6 @@ const OrderListItem = ({
         "Đã giao",
     ];
 
-    const [isCanceled, setIsCanceled] = useState(false);
-    const [currentStatus, setCurrentStatus] = useState(orderStatus);
-
     const handleCancel = () => {
         setIsCanceled(true);
     };
@@ -35,12 +30,11 @@ const OrderListItem = ({
     const handleChangeStatus = (e) => {
         const newStatus = e.target.value;
         setCurrentStatus(newStatus);
-
         updateChangeStatus(newStatus);
     };
 
     const updateChangeStatus = (newStatus) => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/orders/${orderNumber}`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/orders/${order?._id}`, {
             method: "PUT",
             headers: {
                 Accept: "application/json",
@@ -50,11 +44,10 @@ const OrderListItem = ({
             body: JSON.stringify({
                 status: newStatus,
             }),
-        });
+        })
+            .then(() => getData())
+            .catch((error) => alert(error));
     };
-
-    const totalOrderCost =
-        orderCost + orderCost * 0.1 + (orderCost ? 25000 : 0);
 
     return (
         <tr>
@@ -62,15 +55,15 @@ const OrderListItem = ({
                 <QRCode
                     className='qrcode'
                     size={32}
-                    value={orderNumber}
+                    value={order?._id}
                     viewBox={`0 0 256 256`}
                 />
             </td>
             <td>{formattedDate}</td>
-            <td>{orderCustomer}</td>
+            <td>{order?.user?.fullname}</td>
             <td>
                 <CurrencyFormat
-                    value={totalOrderCost}
+                    value={order?.price}
                     displayType={"text"}
                     thousandSeparator={true}
                     suffix={"VND"}
@@ -84,9 +77,7 @@ const OrderListItem = ({
                     onChange={handleChangeStatus}
                     value={currentStatus}>
                     {status?.map((value) => (
-                        <option key={value} value={value}>
-                            {value}
-                        </option>
+                        <option value={value} label={value} />
                     ))}
                 </select>
             </td>
