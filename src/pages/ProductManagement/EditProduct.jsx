@@ -8,9 +8,8 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     const [origin, setOrigin] = useState("");
     const [volume, setVolume] = useState("");
     const [weight, setWeight] = useState("");
-    const [utility, setUtility] = useState("");
     const [brand, setBrand] = useState("");
-    const [description, setDescription] = useState("bla bla");
+    const [description, setDescription] = useState("Chi tiết sản phẩm");
     const [price, setPrice] = useState(0);
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState("");
@@ -90,8 +89,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             body: formData,
         })
             .then((res) => res.json())
-            .then((data) => {
-                console.log("ok");
+            .then(() => {
                 alert("Thêm sản phẩm thành công");
                 window.location.reload();
             })
@@ -308,7 +306,11 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                             onChange={handleChangeTags}></input>
                     </div>
                     <div className='edit-prod-btn-wrapper'>
-                        <button className='cancel-btn'>Hủy bỏ</button>
+                        <button
+                            className='cancel-btn'
+                            onClick={handleBackButtonClicked}>
+                            Hủy bỏ
+                        </button>
                         <button className='approve-btn' onClick={handleSubmit}>
                             Đồng ý
                         </button>

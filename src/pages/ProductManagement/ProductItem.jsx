@@ -53,9 +53,9 @@ const ProductItem = ({
             {/* <td>{prodBuyPrice}</td> */}
             <td>{prodInventory}</td>
             <td>{prodCategory}</td>
-            {/* <td onClick={handleClickEdit}>
+            <td onClick={handleClickEdit}>
                 Chỉnh sửa<i className='fa-solid fa-pencil'></i>
-            </td> */}
+            </td>
             <td onClick={handleDelete}>
                 Xóa<i class='fa-solid fa-trash'></i>
             </td>
