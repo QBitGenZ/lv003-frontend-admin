@@ -33,10 +33,10 @@ const OrderList = () => {
         if (selectedValue === "all") {
             setFilteredOrders(orders);
         } else {
-            const filtered = orders.filter(
-                (order) => order.status === selectedValue
+            setFilteredOrders(
+                orders.filter((order) => order.status === selectedValue)
             );
-            setFilteredOrders(filtered);
+            console.log(filteredOrders);
         }
     };
 
@@ -79,19 +79,13 @@ const OrderList = () => {
                 </tr>
                 {filteredOrders?.map((order) => {
                     order?.items?.map((item) => {
-                        price += item?.product?.price * 1.0 * item?.quantity;
+                        price +=
+                            item?.product?.price * 1.0 * item?.quantity + 25000;
                     });
 
-                    return (
-                        <OrderListItem
-                            orderNumber={order?._id}
-                            orderTime={order?.created_at}
-                            orderCustomer={order?.user?.fullname}
-                            orderCost={price}
-                            // orderProfit={order?.orderProfit}
-                            orderStatus={order?.status}
-                        />
-                    );
+                    order = { ...order, price: price };
+
+                    return <OrderListItem order={order} getData={getOrders} />;
                 })}
             </table>
         </div>

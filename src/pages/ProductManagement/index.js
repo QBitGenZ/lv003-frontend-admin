@@ -12,8 +12,10 @@ const ProductManagement = () => {
     const [showEditProduct, setShowEditProduct] = useState(false);
     const [showAddProduct, setShowAddProduct] = useState(false);
 
+    const [product, setProduct] = useState(null);
+
     const handleClickEdit = () => {
-        setShowEditProduct(true);
+        setShowAddProduct(true);
     };
 
     const handleAddProductClicked = () => {

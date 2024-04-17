@@ -1,32 +1,33 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 const AddProduct = ({ product, handleBackButtonClicked }) => {
-    const [name, setName] = useState("");
-    const [type, setType] = useState({});
-    const [origin, setOrigin] = useState("");
-    const [volume, setVolume] = useState("");
-    const [weight, setWeight] = useState("");
-    const [utility, setUtility] = useState("");
-    const [brand, setBrand] = useState("");
-    const [description, setDescription] = useState("bla bla");
-    const [price, setPrice] = useState(0);
-    const [cost, setCost] = useState(0);
-    const [quantity, setQuantity] = useState("");
-    let [tags, setTags] = useState("");
-    const [images, setImages] = useState([]);
-    const [productionDate, setProductionDate] = useState("");
-    const [expiryDate, setExpiryDate] = useState("");
-    const [sale, setSale] = useState("");
+    useLayoutEffect(() => {
+        getProductTypes();
+        getBrand();
+        getData();
+    }, []);
+
+    const [name, setName] = useState(product?.name);
+    const [type, setType] = useState(product?.type);
+    const [origin, setOrigin] = useState(product?.origin);
+    const [volume, setVolume] = useState(product?.volume);
+    const [weight, setWeight] = useState(product?.weight);
+    const [brand, setBrand] = useState(product?.brand);
+    const [description, setDescription] = useState(product?.description);
+    const [price, setPrice] = useState(product?.price);
+    const [cost, setCost] = useState(product?.cost);
+    const [quantity, setQuantity] = useState(product?.quantity);
+    let [tags, setTags] = useState(product?.tags);
+    const [images, setImages] = useState(product?.images[0]);
+    const [expiryDate, setExpiryDate] = useState(product?.expiryDate);
+    const [productionDate, setProductionDate] = useState(
+        product?.productionDate
+    );
 
     const [types, setTypes] = useState([]);
     const [brands, setBrands] = useState([]);
-
-    useEffect(() => {
-        getProductTypes();
-        getBrand();
-    }, []);
 
     const getProductTypes = () => {
         fetch(`${process.env.REACT_APP_HOST_IP}/product-types`, {
@@ -38,7 +39,6 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setType(data?.data[0]?._id);
                 setTypes(data.data);
             })
             .catch((error) => console.log(error));
@@ -54,7 +54,6 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setBrands(data?.data);
                 setBrand(data?.data[0]?._id);
             })
             .catch((error) => console.log(error));
@@ -67,25 +66,7 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
                 Accept: "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setName(data?.data?.name);
-                setBrand(data?.data?.brand);
-                setType(data?.data?.type);
-                setOrigin(data?.data?.origin);
-                setVolume(data?.data?.volume);
-                setQuantity(data?.data?.quantity);
-                setDescription(data?.data?.description);
-                setPrice(data?.data?.price);
-                setCost(data?.data?.cost);
-                setTags(data?.data?.tags);
-                setImages(data?.data?.images);
-                setProductionDate(data?.data?.productionDate);
-                setExpiryDate(data?.data?.expiryDate);
-            })
-            .catch((error) => console.log(error));
+        });
     };
 
     const updateData = () => {
