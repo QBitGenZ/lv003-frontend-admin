@@ -21,7 +21,7 @@ const OrderList = () => {
             .then((res) => res.json())
             .then((data) => {
                 setOrders(data?.data);
-                setFilteredOrders(data?.data);
+                filterOrders(data?.data, selectedStatus);
             })
             .catch((error) => alert(error));
     };
@@ -38,6 +38,17 @@ const OrderList = () => {
             );
             console.log(filteredOrders);
         }
+    };
+
+    const filterOrders = (ordersToFilter, status) => {
+
+        let filtered = [];
+        if (status === "all") {
+            filtered = [...ordersToFilter];
+        } else {
+            filtered = ordersToFilter.filter((order) => order.status === status);
+        }
+        setFilteredOrders(filtered);
     };
 
     let price = 0.0;
