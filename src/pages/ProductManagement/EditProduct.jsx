@@ -1,23 +1,22 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
-const EditProduct = ({ product, handleBackButtonClicked }) => {
-    const [name, setName] = useState("");
-    const [type, setType] = useState({});
-    const [origin, setOrigin] = useState("");
-    const [volume, setVolume] = useState("");
-    const [weight, setWeight] = useState("");
-    const [brand, setBrand] = useState("");
-    const [description, setDescription] = useState("Chi tiết sản phẩm");
-    const [price, setPrice] = useState(0);
-    const [cost, setCost] = useState(0);
-    const [quantity, setQuantity] = useState("");
-    let [tags, setTags] = useState("");
-    const [images, setImages] = useState([]);
-    const [productionDate, setProductionDate] = useState("");
-    const [expiryDate, setExpiryDate] = useState("");
-    const [sale, setSale] = useState("");
+const EditProduct = ({ productId, handleBackButtonClicked }) => {
+    const [name, setName] = useState();
+    const [type, setType] = useState();
+    const [origin, setOrigin] = useState();
+    const [volume, setVolume] = useState();
+    const [weight, setWeight] = useState();
+    const [brand, setBrand] = useState();
+    const [description, setDescription] = useState();
+    const [price, setPrice] = useState();
+    const [cost, setCost] = useState();
+    const [quantity, setQuantity] = useState();
+    let [tags, setTags] = useState();
+    const [images, setImages] = useState();
+    const [expiryDate, setExpiryDate] = useState();
+    const [productionDate, setProductionDate] = useState();
 
     const [types, setTypes] = useState([]);
     const [brands, setBrands] = useState([]);
@@ -25,6 +24,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
     useEffect(() => {
         getProductTypes();
         getBrand();
+        getProducts();
     }, []);
 
     const getProductTypes = () => {
@@ -37,7 +37,6 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setType(data?.data[0]?._id);
                 setTypes(data.data);
             })
             .catch((error) => console.log(error));
@@ -53,15 +52,43 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setBrands(data?.data);
                 setBrand(data?.data[0]?._id);
             })
             .catch((error) => console.log(error));
     };
 
-    const handleSubmit = () => {
-        console.log("name: " + name);
+    const getProducts = () => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/products/${productId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Accept: "application/json",
+            },
+        })
+            .then((res) =>
+                res.status === 200 ? res.json() : Promise.reject(res.json())
+            )
+            .then((data) => {
+                console.log(data?.data);
+                setName(data?.data?.name);
+                setType(data?.data?.type);
+                setOrigin(data?.data?.origin);
+                setVolume(data?.data?.volume);
+                // setWeight(data?.data?.weight);
+                setBrand(data?.data?.brand);
+                setDescription(data?.data?.description);
+                setPrice(data?.data?.price);
+                setCost(data?.data?.cost);
+                setQuantity(data?.data?.quantity);
+                setTags(data?.data?.tags.join(" "));
+                setImages(data?.data?.images);
+                // setExpiryDate(data?.data?.expiryDate);
+                // setProductionDate(data?.data?.productionDate);
+            })
+            .catch((error) => alert(error));
+    };
 
+    const updateData = () => {
         const formData = new FormData();
 
         formData.append("name", name);
@@ -78,10 +105,8 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             formData.append(`images`, image);
         });
 
-        console.log(JSON.stringify(tags.split(" ")));
-
         fetch(`${process.env.REACT_APP_HOST_IP}/products`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -89,8 +114,9 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
             body: formData,
         })
             .then((res) => res.json())
-            .then(() => {
-                alert("Thêm sản phẩm thành công");
+            .then((data) => {
+                console.log("ok");
+                alert("Sửa thành công");
                 window.location.reload();
             })
             .catch((error) => console.log(error));
@@ -261,10 +287,6 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                         <CKEditor
                             editor={ClassicEditor}
                             data={description}
-                            onReady={(editor) => {
-                                // You can store the "editor" and use when it is needed.
-                                console.log("Editor is ready to use!", editor);
-                            }}
                             onChange={handleChangeDescription}
                         />
 
@@ -311,7 +333,7 @@ const EditProduct = ({ product, handleBackButtonClicked }) => {
                             onClick={handleBackButtonClicked}>
                             Hủy bỏ
                         </button>
-                        <button className='approve-btn' onClick={handleSubmit}>
+                        <button className='approve-btn' onClick={updateData}>
                             Đồng ý
                         </button>
                     </div>
