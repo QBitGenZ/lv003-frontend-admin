@@ -2,9 +2,9 @@ import Header from "../../common/Header";
 import SideBar from "../../common/SideBar";
 import ProductManagementBody from "./ProductManagementBody";
 import "./ProductManagement.css";
-import EditProduct from "./EditProduct";
-import { useState } from "react";
 import AddProduct from "./AddProduct";
+import { useState } from "react";
+import EditProduct from "./EditProduct";
 
 const ProductManagement = () => {
     const currentPage = "Quản lý sản phẩm";
@@ -12,17 +12,19 @@ const ProductManagement = () => {
     const [showEditProduct, setShowEditProduct] = useState(false);
     const [showAddProduct, setShowAddProduct] = useState(false);
 
-    const [product, setProduct] = useState(null);
+    const [productId, setProductId] = useState(null);
 
-    const handleClickEdit = () => {
-        setShowAddProduct(true);
-    };
-
-    const handleAddProductClicked = () => {
+    const handleClickEdit = (e) => {
+        setProductId(e.target.id);
         setShowEditProduct(true);
     };
 
+    const handleAddProductClicked = () => {
+        setShowAddProduct(true);
+    };
+
     const handleBackButtonClicked = () => {
+        setShowAddProduct(false);
         setShowEditProduct(false);
     };
 
@@ -32,6 +34,7 @@ const ProductManagement = () => {
             <SideBar currentPage={"productMng"} />
             {showEditProduct ? (
                 <EditProduct
+                    productId={productId}
                     handleBackButtonClicked={handleBackButtonClicked}
                 />
             ) : showAddProduct ? (

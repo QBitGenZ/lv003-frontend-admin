@@ -1,4 +1,3 @@
-import ProductFilter from "./ProductFilter";
 import ProductList from "./ProductList";
 
 const ProductManagementBody = ({

@@ -1,33 +1,31 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const AddProduct = ({ product, handleBackButtonClicked }) => {
-    useLayoutEffect(() => {
-        getProductTypes();
-        getBrand();
-        getData();
-    }, []);
-
-    const [name, setName] = useState(product?.name);
-    const [type, setType] = useState(product?.type);
-    const [origin, setOrigin] = useState(product?.origin);
-    const [volume, setVolume] = useState(product?.volume);
-    const [weight, setWeight] = useState(product?.weight);
-    const [brand, setBrand] = useState(product?.brand);
-    const [description, setDescription] = useState(product?.description);
-    const [price, setPrice] = useState(product?.price);
-    const [cost, setCost] = useState(product?.cost);
-    const [quantity, setQuantity] = useState(product?.quantity);
-    let [tags, setTags] = useState(product?.tags);
-    const [images, setImages] = useState(product?.images[0]);
-    const [expiryDate, setExpiryDate] = useState(product?.expiryDate);
-    const [productionDate, setProductionDate] = useState(
-        product?.productionDate
-    );
+const AddProduct = ({ handleBackButtonClicked }) => {
+    const [name, setName] = useState("");
+    const [type, setType] = useState({});
+    const [origin, setOrigin] = useState("");
+    const [volume, setVolume] = useState("");
+    const [weight, setWeight] = useState("");
+    const [brand, setBrand] = useState("");
+    const [description, setDescription] = useState("Chi tiết sản phẩm");
+    const [price, setPrice] = useState(0);
+    const [cost, setCost] = useState(0);
+    const [quantity, setQuantity] = useState("");
+    let [tags, setTags] = useState("");
+    const [images, setImages] = useState([]);
+    const [productionDate, setProductionDate] = useState("");
+    const [expiryDate, setExpiryDate] = useState("");
+    const [sale, setSale] = useState("");
 
     const [types, setTypes] = useState([]);
     const [brands, setBrands] = useState([]);
+
+    useEffect(() => {
+        getProductTypes();
+        getBrand();
+    }, []);
 
     const getProductTypes = () => {
         fetch(`${process.env.REACT_APP_HOST_IP}/product-types`, {
@@ -39,6 +37,7 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
+                setType(data?.data[0]?._id);
                 setTypes(data.data);
             })
             .catch((error) => console.log(error));
@@ -54,22 +53,13 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
+                setBrands(data?.data);
                 setBrand(data?.data[0]?._id);
             })
             .catch((error) => console.log(error));
     };
 
-    const getData = () => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/products/${product}`, {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        });
-    };
-
-    const updateData = () => {
+    const handleSubmit = () => {
         console.log("name: " + name);
 
         const formData = new FormData();
@@ -88,8 +78,10 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
             formData.append(`images`, image);
         });
 
+        console.log(JSON.stringify(tags.split(" ")));
+
         fetch(`${process.env.REACT_APP_HOST_IP}/products`, {
-            method: "PUT",
+            method: "POST",
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -97,8 +89,7 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
             body: formData,
         })
             .then((res) => res.json())
-            .then((data) => {
-                console.log("ok");
+            .then(() => {
                 alert("Thêm sản phẩm thành công");
                 window.location.reload();
             })
@@ -315,8 +306,12 @@ const AddProduct = ({ product, handleBackButtonClicked }) => {
                             onChange={handleChangeTags}></input>
                     </div>
                     <div className='edit-prod-btn-wrapper'>
-                        <button className='cancel-btn'>Hủy bỏ</button>
-                        <button className='approve-btn' onClick={updateData}>
+                        <button
+                            className='cancel-btn'
+                            onClick={handleBackButtonClicked}>
+                            Hủy bỏ
+                        </button>
+                        <button className='approve-btn' onClick={handleSubmit}>
                             Đồng ý
                         </button>
                     </div>

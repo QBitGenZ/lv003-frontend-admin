@@ -19,7 +19,9 @@ const ProductList = ({ handleClickEdit }) => {
             .then((res) =>
                 res.status === 200 ? res.json() : Promise.reject(res.json())
             )
-            .then((data) => setProducts(data.data))
+            .then((data) => {
+                setProducts(data?.data);
+            })
             .catch((error) => alert(error));
     };
 
