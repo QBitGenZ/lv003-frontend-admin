@@ -52,7 +52,7 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setBrand(data?.data[0]?._id);
+                setBrands(data?.data);
             })
             .catch((error) => console.log(error));
     };
@@ -74,16 +74,19 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
                 setType(data?.data?.type);
                 setOrigin(data?.data?.origin);
                 setVolume(data?.data?.volume);
-                // setWeight(data?.data?.weight);
+                setWeight(data?.data?.weight);
                 setBrand(data?.data?.brand);
                 setDescription(data?.data?.description);
                 setPrice(data?.data?.price);
                 setCost(data?.data?.cost);
                 setQuantity(data?.data?.quantity);
                 setTags(data?.data?.tags.join(" "));
-                setImages(data?.data?.images);
-                // setExpiryDate(data?.data?.expiryDate);
-                // setProductionDate(data?.data?.productionDate);
+                setImages(data?.data?.images[0]);
+                loadImgFromBackend(data?.data?.images[0]);
+                setExpiryDate(formatDateFromMongo(data?.data?.expiryDate));
+                setProductionDate(
+                    formatDateFromMongo(data?.data?.productionDate)
+                );
             })
             .catch((error) => alert(error));
     };
@@ -101,7 +104,7 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         formData.append("price", price);
         formData.append("cost", cost);
         formData.append("tags", JSON.stringify(tags.split(" ")));
-        images.forEach((image, index) => {
+        images.forEach((image) => {
             formData.append(`images`, image);
         });
 
@@ -192,6 +195,29 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
             };
             reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL dữ liệu
         }
+    };
+
+    const loadImgFromBackend = (imageUrl) => {
+        document.getElementById(
+            "inputImg"
+        ).src = `${process.env.REACT_APP_HOST_IMAGE_IP}/${imageUrl}`;
+    };
+
+    const formatDateFromMongo = (date) => {
+        // Giả sử bạn có một biến dateStr lưu trữ dữ liệu từ MongoDB
+        const dateStrFromMongoDB = date;
+
+        // Chuyển đổi định dạng từ MongoDB sang JavaScript Date object
+        const dateObj = new Date(dateStrFromMongoDB);
+
+        const day = dateObj.getDate();
+        const month = dateObj.getMonth() + 1; // Tháng bắt đầu từ 0, nên cần cộng thêm 1
+        const year = dateObj.getFullYear();
+
+        // Chuyển đổi định dạng JavaScript Date object thành yyyy-MM-dd
+        return `${month.toString().padStart(2, "0")} / ${day
+            .toString()
+            .padStart(2, "0")} / ${year}`;
     };
 
     return (

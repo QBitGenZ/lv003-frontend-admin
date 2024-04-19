@@ -1,20 +1,20 @@
-const BestSellerProductItem = ({
-    prodId,
-    prodImgURL,
-    prodName,
-    prodQuantity,
-    prodRevenue,
-}) => {
+import QRCode from "react-qr-code";
+
+const BestSellerProductItem = ({ product }) => {
     return (
         <>
             <tr>
-                <td className='product-code'>{prodId}</td>
-                <td className='product-name'>
-                    <img src={prodImgURL}></img>
-                    {prodName}
+                <td className='product-code'>
+                    <QRCode
+                        className='qrcode'
+                        size={32}
+                        value={product?._id}
+                        viewBox={`0 0 256 256`}
+                    />
                 </td>
-                <td className='product-quantity'>{prodQuantity}</td>
-                <td className='product-revenue'>{prodRevenue}</td>
+                <td className='product-name'>{product?.name}</td>
+                <td className='product-quantity'>{product?.quantitySold}</td>
+                {/* <td className='product-revenue'>{}</td> */}
             </tr>
         </>
     );

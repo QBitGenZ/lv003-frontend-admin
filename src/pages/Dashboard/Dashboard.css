@@ -1,13 +1,12 @@
 #Dashboard .dashboard-body {
-    width: 80%;
+    width: 75vw;
     display: inline-block;
     margin-top: 6%;
     margin-left: 21%;
 }
 
-#UserStatistics,
 #CostStatistics {
-    width: 45%;
+    width: 100%;
     display: inline-block;
     border-radius: 15px;
     background-color: #fafafa;
@@ -17,25 +16,23 @@
     padding-right: 0;
 }
 
+#CostStatistics > * {
+    width: 100% !important;
+    height: auto !important;
+}
+
 #Dashboard .bottom-container {
     margin: 24px;
 }
 
+#Dashboard #BestSellerProduct {
+    margin: 50px 0;
+}
+
 #BestSellerProduct .best-seller-prod-title {
+    text-transform: uppercase;
+    font-size: 24px;
     font-weight: 600;
-}
-
-#BestSellerProduct .best-seller-prod-title > .sub-title {
-    font-weight: 400;
-    display: block;
-    margin: 8px 0 20px;
-}
-
-#BestSellerProduct .best-seller-prod-title > .sub-title > i {
-    margin-right: 8px;
-    padding: 6px 8px;
-    background-color: #00a0ff;
-    border-radius: 100%;
 }
 
 table.best-seller-prod-body * {
@@ -48,10 +45,54 @@ table.best-seller-prod-body th {
 }
 
 table.best-seller-prod-body td {
+    text-align: left;
+}
+
+table.best-seller-prod-body td.product-code,
+table.best-seller-prod-body td.product-quantity {
     text-align: center;
 }
 
 table.best-seller-prod-body td.product-name {
+    display: flex;
+    align-items: center;
+}
+
+#Dashboard #Inventory {
+    margin: 50px 0;
+}
+
+#Inventory .inventory-prod-title {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#Inventory .inventory-prod-title {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+table.inventory-prod-body * {
+    font-size: 20px;
+}
+
+table.inventory-prod-body th {
+    padding: 8px 20px;
+    font-size: 20px;
+}
+
+table.inventory-prod-body td {
+    text-align: left;
+}
+
+table.inventory-prod-body td.product-code,
+table.inventory-prod-body td.product-quantity {
+    text-align: center;
+}
+
+table.inventory-prod-body td.product-name {
     display: flex;
     align-items: center;
 }
