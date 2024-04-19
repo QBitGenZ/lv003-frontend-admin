@@ -25,7 +25,7 @@ const LoginBody = () => {
                 localStorage.setItem("token", data.access_token);
                 if (localStorage.getItem("token")) {
                     alert("Đăng nhập thành công");
-                    window.location.href = "/admin/dashboard";
+                    window.location.href = "/dashboard";
                 }
             })
             .catch((error) => {

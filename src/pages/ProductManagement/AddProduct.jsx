@@ -187,6 +187,7 @@ const AddProduct = ({ handleBackButtonClicked }) => {
                                 process.env.PUBLIC_URL + "/images/input_img.png"
                             }></img>
                     </label>
+                    <p>Đã thêm: {images?.length} ảnh</p>
                 </div>
 
                 <div className='edit-prod-body-right'>

@@ -1,33 +1,39 @@
 import BestSellerProductItem from "./BestSellerProductItem";
 import { ProductData } from "../../common/json/ProductData";
+import { useEffect, useState } from "react";
 
 const BestSellerProduct = () => {
+    const [product, setProduct] = useState([]);
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/statistics/best-seller`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setProduct(data?.data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }, []);
+
     return (
         <div id='BestSellerProduct'>
-            <div className='best-seller-prod-title'>
-                Sản phẩm bán chạy
-                <span className='sub-title'>
-                    <i class='fa-solid fa-check check-icon'></i>
-                    30 ngày qua
-                </span>
-            </div>
+            <div className='best-seller-prod-title'>Sản phẩm bán chạy</div>
             <table className='best-seller-prod-body'>
                 <tr>
                     <th>Mã SP</th>
                     <th>Sản phẩm</th>
                     <th>Số lượng bán</th>
-                    <th>Doanh thu</th>
+                    {/* <th>Doanh thu</th> */}
                 </tr>
-                {ProductData.map((prod) => (
-                    <BestSellerProductItem
-                        prodId={prod.ProductNo}
-                        prodImgURL={
-                            process.env.PUBLIC_URL + prod?.ProductImage[0]
-                        }
-                        prodName={prod.ProductDescription}
-                        prodQuantity={prod.ProductInventory}
-                        prodRevenue={"1.200.000"}
-                    />
+                {product.map((prod) => (
+                    <BestSellerProductItem product={prod} />
                 ))}
             </table>
         </div>

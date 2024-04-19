@@ -14,19 +14,17 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <BrowserRouter>
         <Routes>
-            <Route path='/admin' element={<App />}></Route>
-            <Route path='/admin/dashboard' element={<Dashboard />}></Route>
+            <Route index element={<App />}></Route>
+            <Route path='/dashboard' element={<Dashboard />}></Route>
+            <Route path='/user-management' element={<UserManagement />}></Route>
             <Route
-                path='/admin/user-management'
-                element={<UserManagement />}></Route>
-            <Route
-                path='/admin/category-management'
+                path='/category-management'
                 element={<CategoriesManagement />}></Route>
             <Route
-                path='/admin/product-management'
+                path='/product-management'
                 element={<ProductManagement />}></Route>
             <Route
-                path='/admin/order-management'
+                path='/order-management'
                 element={<OrderManagement />}></Route>
         </Routes>
     </BrowserRouter>

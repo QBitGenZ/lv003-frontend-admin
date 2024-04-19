@@ -15,25 +15,25 @@ defaults.plugins.title.font.size = 25;
 defaults.plugins.title.color = "black";
 
 const CostStatistics = () => {
-    // const [revenueStatistics, setRevenueStatistics] = useState([]);
+    const [revenue, setRevenue] = useState([]);
 
-    // useEffect(() => {
-    //     fetch(`${process.env.REACT_APP_HOST_IP}/orders`, {
-    //         method: "GET",
-    //         headers: {
-    //             Accept: "application/json",
-    //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //         },
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setRevenueStatistics(data?.data);
-    //             console.log("data " + data?.data);
-    //         })
-    //         .catch((error) => console.log(error));
-    // }, []);
-
-    // console.log("revenueStatistics " + revenueStatistics);
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/statistics/revenue`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // setRevenue(data);
+                // console.log(data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }, []);
 
     const data = {
         labels: expenseStatistics?.map((data) => data.label),
@@ -42,17 +42,13 @@ const CostStatistics = () => {
                 label: "Doanh thu",
                 data: revenueStatistics?.map((data) => data?.value),
             },
-            {
-                label: "Chi phí",
-                data: expenseStatistics?.map((data) => data.value),
-            },
         ],
     };
 
     const options = {
         plugins: {
             title: {
-                text: "Doanh thu & Chi phí",
+                text: "Doanh thu",
             },
         },
     };

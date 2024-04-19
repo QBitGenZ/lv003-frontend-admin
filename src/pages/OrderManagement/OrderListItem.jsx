@@ -3,14 +3,12 @@ import CurrencyFormat from "react-currency-format";
 import QRCode from "react-qr-code";
 
 const OrderListItem = ({ order, getData }) => {
-
     const [isCanceled, setIsCanceled] = useState(false);
     const [currentStatus, setCurrentStatus] = useState(order?.status);
 
     useEffect(() => {
-        setCurrentStatus(order?.status); 
+        setCurrentStatus(order?.status);
     }, [order]);
-
 
     // Chuyển đổi sang đối tượng Date
     const dateObj = new Date(order?.created_at);

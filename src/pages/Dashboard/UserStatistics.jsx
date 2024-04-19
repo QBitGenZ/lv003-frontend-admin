@@ -17,7 +17,7 @@ const UserStatistics = () => {
         labels: userAccess.map((data) => data.label),
         datasets: [
             {
-                label: "Lượt truy cập",
+                label: "Hàng tồn kho",
                 data: userAccess.map((data) => data.value),
             },
         ],

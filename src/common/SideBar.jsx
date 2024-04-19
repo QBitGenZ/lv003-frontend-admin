@@ -37,7 +37,7 @@ const SideBar = ({ currentPage }) => {
             </div>
             <div className='navigation'>
                 <Link
-                    to={"/admin/dashboard"}
+                    to={"/dashboard"}
                     className={
                         (page === "home" ? "active " : "") + "nav-item nav-home"
                     }
@@ -46,7 +46,7 @@ const SideBar = ({ currentPage }) => {
                     <span>Trang chủ</span>
                 </Link>
                 <Link
-                    to={"/admin/user-management"}
+                    to={"/user-management"}
                     className={
                         (page === "userMng" ? "active " : "") +
                         "nav-item nav-user-mng"
@@ -56,7 +56,7 @@ const SideBar = ({ currentPage }) => {
                     <span>Quản lý người dùng</span>
                 </Link>
                 <Link
-                    to={"/admin/category-management"}
+                    to={"/category-management"}
                     className={
                         (page === "categoryMng" ? "active " : "") +
                         "nav-item nav-catagpry-mng"
@@ -66,7 +66,7 @@ const SideBar = ({ currentPage }) => {
                     <span>Quản lý danh mục</span>
                 </Link>
                 <Link
-                    to={"/admin/product-management"}
+                    to={"/product-management"}
                     className={
                         (page === "productMng" ? "active " : "") +
                         "nav-item nav-product-mng"
@@ -76,7 +76,7 @@ const SideBar = ({ currentPage }) => {
                     <span>Quản lý sản phẩm</span>
                 </Link>
                 <Link
-                    to={"/admin/order-management"}
+                    to={"/order-management"}
                     className={
                         (page === "orderMng" ? "active " : "") +
                         "nav-item nav-order"
@@ -87,7 +87,7 @@ const SideBar = ({ currentPage }) => {
                 </Link>
             </div>
             <div className='logout-container'>
-                <Link to={"/admin"} className='logout'>
+                <Link to={"/"} className='logout'>
                     <i class='fa-solid fa-arrow-right-from-bracket'></i>
                     <span>Đăng xuất</span>
                 </Link>
