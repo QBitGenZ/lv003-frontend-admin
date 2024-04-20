@@ -18,14 +18,30 @@ const UserInforDetail = ({ user, onClickBack }) => {
         const currentYear = today.getFullYear();
         const birthYear = birthday.getFullYear();
 
-        console.log("current: " + currentYear);
-        console.log("birth: " + birthYear);
-
         // Tính tuổi theo năm
         let age = currentYear - birthYear;
 
         return age;
     }
+
+    const deleteUser = (username) => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/${username}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        }).then((res) => {
+            if (res.status === 204) {
+                alert("Xóa tài khoản thành công");
+                window.location.reload();
+            } else {
+                alert("Xóa tài khoản thất bại");
+            }
+        });
+    };
+
+    console.log(user);
 
     return (
         <div id='UserInforDetail'>
@@ -45,7 +61,11 @@ const UserInforDetail = ({ user, onClickBack }) => {
                             <div className='user-name'>{user?.fullname}</div>
                             <div className='user-email'>{user?.email}</div>
                         </div>
-                        <div className='delete-user-btn'>Xóa tài khoản</div>
+                        <div
+                            className='delete-user-btn'
+                            onClick={() => deleteUser(user?.username)}>
+                            Xóa tài khoản
+                        </div>
                     </div>
                     <div className='user-detail-right-bot'>
                         <div className='user-detail-bot-header'>
@@ -58,7 +78,7 @@ const UserInforDetail = ({ user, onClickBack }) => {
                                 onClick={handleChangeInformationTab}>
                                 Thông tin
                             </div>
-                            <div
+                            {/* <div
                                 className={
                                     (currentTab === "violation"
                                         ? "active "
@@ -66,7 +86,7 @@ const UserInforDetail = ({ user, onClickBack }) => {
                                 }
                                 onClick={handleChangeViolationTab}>
                                 Vi phạm
-                            </div>
+                            </div> */}
                         </div>
                         {currentTab === "information" ? (
                             <table className='user-detail-bot-body'>
@@ -101,7 +121,7 @@ const UserInforDetail = ({ user, onClickBack }) => {
                             </table>
                         ) : (
                             <div className='user-detail-bot-body'>
-                                <UserViolation
+                                {/* <UserViolation
                                     title={"Nội dung vi phạm"}
                                     date={"20-02-2024 18:30"}
                                 />
@@ -116,7 +136,7 @@ const UserInforDetail = ({ user, onClickBack }) => {
                                 <UserViolation
                                     title={"Nội dung vi phạm"}
                                     date={"20-02-2024 18:30"}
-                                />
+                                /> */}
                             </div>
                         )}
                     </div>

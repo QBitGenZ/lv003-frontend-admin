@@ -19,7 +19,6 @@ const UserInforBody = () => {
             .then((res) => res.json())
             .then((data) => {
                 setUsers(data?.data);
-                console.log(data);
             })
             .catch((error) => {
                 console.log(error);

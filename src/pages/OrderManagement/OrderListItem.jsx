@@ -8,6 +8,7 @@ const OrderListItem = ({ order, getData }) => {
 
     useEffect(() => {
         setCurrentStatus(order?.status);
+        order?.status === "Đã hủy" && setIsCanceled(true);
     }, [order]);
 
     // Chuyển đổi sang đối tượng Date
@@ -27,6 +28,7 @@ const OrderListItem = ({ order, getData }) => {
 
     const handleCancel = () => {
         setIsCanceled(true);
+        cancelOrder();
     };
 
     const handleChangeStatus = (e) => {
@@ -51,6 +53,22 @@ const OrderListItem = ({ order, getData }) => {
             .catch((error) => alert(error));
     };
 
+    const cancelOrder = () => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/orders/${order?._id}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                status: "Đã hủy",
+            }),
+        })
+            .then(() => getData())
+            .catch((error) => alert(error));
+    };
+
     return (
         <tr>
             <td>
@@ -65,7 +83,7 @@ const OrderListItem = ({ order, getData }) => {
             <td>{order?.user?.fullname}</td>
             <td>
                 <CurrencyFormat
-                    value={order?.price}
+                    value={order?.totalPrice}
                     displayType={"text"}
                     thousandSeparator={true}
                     suffix={"VND"}
