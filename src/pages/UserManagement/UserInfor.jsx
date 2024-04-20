@@ -14,9 +14,6 @@ const UserInfor = ({
         const currentYear = today.getFullYear();
         const birthYear = birthday.getFullYear();
 
-        console.log("current: " + currentYear);
-        console.log("birth: " + birthYear);
-
         // Tính tuổi theo năm
         let age = currentYear - birthYear;
 

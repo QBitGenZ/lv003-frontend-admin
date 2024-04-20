@@ -71,17 +71,17 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
             .then((data) => {
                 console.log(data?.data);
                 setName(data?.data?.name);
-                setType(data?.data?.type);
+                setType(data?.data?.type?._id);
                 setOrigin(data?.data?.origin);
                 setVolume(data?.data?.volume);
                 setWeight(data?.data?.weight);
-                setBrand(data?.data?.brand);
+                setBrand(data?.data?.brand?._id);
                 setDescription(data?.data?.description);
                 setPrice(data?.data?.price);
                 setCost(data?.data?.cost);
                 setQuantity(data?.data?.quantity);
                 setTags(data?.data?.tags.join(" "));
-                setImages(data?.data?.images[0]);
+                setImages(data?.data?.images);
                 loadImgFromBackend(data?.data?.images[0]);
                 setExpiryDate(formatDateFromMongo(data?.data?.expiryDate));
                 setProductionDate(
@@ -104,11 +104,11 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         formData.append("price", price);
         formData.append("cost", cost);
         formData.append("tags", JSON.stringify(tags.split(" ")));
-        images.forEach((image) => {
+        images?.forEach((image) => {
             formData.append(`images`, image);
         });
 
-        fetch(`${process.env.REACT_APP_HOST_IP}/products`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/products/${productId}`, {
             method: "PUT",
             headers: {
                 Accept: "application/json",
@@ -116,13 +116,24 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
             },
             body: formData,
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === 200) {
+                    return res.json();
+                } else {
+                    return res.json().then((data) => {
+                        return Promise.reject(data.error);
+                    });
+                }
+            })
             .then((data) => {
                 console.log("ok");
                 alert("Sửa thành công");
                 window.location.reload();
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                console.log(error);
+                alert(error);
+            });
     };
 
     const handleChangeName = (e) => {
@@ -359,7 +370,11 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
                             onClick={handleBackButtonClicked}>
                             Hủy bỏ
                         </button>
-                        <button className='approve-btn' onClick={updateData}>
+                        <button
+                            className='approve-btn'
+                            onClick={() => {
+                                updateData();
+                            }}>
                             Đồng ý
                         </button>
                     </div>

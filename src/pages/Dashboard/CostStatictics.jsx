@@ -17,6 +17,9 @@ defaults.plugins.title.color = "black";
 const CostStatistics = () => {
     const [revenue, setRevenue] = useState([]);
 
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_HOST_IP}/statistics/revenue`, {
             method: "GET",
@@ -27,20 +30,43 @@ const CostStatistics = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                // setRevenue(data);
-                // console.log(data);
+                setRevenue(data?.data);
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
     }, []);
 
+    const getStatisticWithDate = (startDate, endDate) => {
+        fetch(
+            `${process.env.REACT_APP_HOST_IP}/statistics/revenue?startDate=${startDate}&endDate=${endDate}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                setRevenue(data?.data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    };
+
+    const convertDate = (inputDate) => {
+        return new Date(inputDate).toISOString().split("T")[0];
+    };
+
     const data = {
-        labels: expenseStatistics?.map((data) => data.label),
+        labels: Object.keys(revenue),
         datasets: [
             {
                 label: "Doanh thu",
-                data: revenueStatistics?.map((data) => data?.value),
+                data: Object.values(revenue),
             },
         ],
     };
@@ -51,11 +77,46 @@ const CostStatistics = () => {
                 text: "Doanh thu",
             },
         },
+        scales: {
+            x: {
+                stacked: true,
+                title: {
+                    text: "Tháng",
+                    display: true,
+                },
+            },
+            y: {
+                stacked: true,
+                title: {
+                    text: "VND",
+                    display: true,
+                },
+            },
+        },
     };
 
     return (
         <div id='CostStatistics'>
-            <Line data={data} options={options}></Line>
+            <Line data={data} options={options} config></Line>
+            <div className='input-range-container'>
+                <label htmlFor='start'>Từ:</label>
+                <input
+                    id='start'
+                    type='date'
+                    onChange={(e) => setStartDate(convertDate(e.target.value))}
+                />
+                <label htmlFor='end'>Đến:</label>
+                <input
+                    id='end'
+                    type='date'
+                    onChange={(e) => setEndDate(convertDate(e.target.value))}
+                />
+                <button
+                    style={{ cursor: "pointer" }}
+                    onClick={() => getStatisticWithDate(startDate, endDate)}>
+                    Thống kê
+                </button>
+            </div>
         </div>
     );
 };

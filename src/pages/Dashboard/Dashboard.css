@@ -16,6 +16,16 @@
     padding-right: 0;
 }
 
+#CostStatistics .input-range-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#CostStatistics .input-range-container input {
+    width: 20%;
+}
+
 #CostStatistics > * {
     width: 100% !important;
     height: auto !important;
@@ -85,6 +95,7 @@ table.inventory-prod-body th {
 
 table.inventory-prod-body td {
     text-align: left;
+    padding: 10px;
 }
 
 table.inventory-prod-body td.product-code,
