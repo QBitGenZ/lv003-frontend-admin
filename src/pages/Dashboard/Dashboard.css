@@ -107,3 +107,13 @@ table.inventory-prod-body td.product-name {
     display: flex;
     align-items: center;
 }
+
+#ExpiredProduct {
+    margin: 32px 0;
+}
+
+#ExpiredProduct .best-seller-prod-title {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 600;
+}

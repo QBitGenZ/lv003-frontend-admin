@@ -9,7 +9,7 @@ const ProductList = ({ handleClickEdit }) => {
     }, []);
 
     const getProducts = () => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/products/`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/products/admin/`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -22,7 +22,7 @@ const ProductList = ({ handleClickEdit }) => {
             .then((data) => {
                 setProducts(data?.data);
             })
-            .catch((error) => alert(error));
+            .catch((error) => console.log(error));
     };
 
     return (

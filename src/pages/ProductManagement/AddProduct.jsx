@@ -18,6 +18,7 @@ const AddProduct = ({ handleBackButtonClicked }) => {
     const [productionDate, setProductionDate] = useState("");
     const [expiryDate, setExpiryDate] = useState("");
     const [sale, setSale] = useState("");
+    const [videos, setVideos] = useState(null);
 
     const [types, setTypes] = useState([]);
     const [brands, setBrands] = useState([]);
@@ -74,9 +75,12 @@ const AddProduct = ({ handleBackButtonClicked }) => {
         formData.append("price", price);
         formData.append("cost", cost);
         formData.append("tags", JSON.stringify(tags.split(" ")));
-        images.forEach((image, index) => {
+        images.forEach((image) => {
             formData.append(`images`, image);
         });
+        formData.append("video", videos);
+        formData.append("productionDate", productionDate);
+        formData.append("expiryDate", expiryDate);
 
         console.log(JSON.stringify(tags.split(" ")));
 
@@ -88,12 +92,19 @@ const AddProduct = ({ handleBackButtonClicked }) => {
             },
             body: formData,
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === 201) {
+                    alert("Thêm sản phẩm thành công");
+                } else {
+                    return Promise.reject("Thêm sản phẩm thất bại");
+                }
+            })
             .then(() => {
-                alert("Thêm sản phẩm thành công");
                 window.location.reload();
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                alert(error);
+            });
     };
 
     const handleChangeName = (e) => {
@@ -149,6 +160,10 @@ const AddProduct = ({ handleBackButtonClicked }) => {
         setTags(e.target.value);
     };
 
+    const handleChangeVideos = (e) => {
+        setVideos(e.target.files[0]);
+    };
+
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         setImages(files);
@@ -187,7 +202,22 @@ const AddProduct = ({ handleBackButtonClicked }) => {
                                 process.env.PUBLIC_URL + "/images/input_img.png"
                             }></img>
                     </label>
-                    <p>Đã thêm: {images?.length} ảnh</p>
+
+                    <input
+                        id='videoFile'
+                        type='file'
+                        accept='video/*'
+                        onChange={handleChangeVideos}></input>
+                    <label htmlFor='videoFile' className='input-img'>
+                        <img
+                            id='inputVideo'
+                            src={
+                                process.env.PUBLIC_URL + "/images/input_img.png"
+                            }></img>
+                    </label>
+                    <p>
+                        Đã thêm: {images?.length} ảnh, {videos ? 1 : 0} video
+                    </p>
                 </div>
 
                 <div className='edit-prod-body-right'>

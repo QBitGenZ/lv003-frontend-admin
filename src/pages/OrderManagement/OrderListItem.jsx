@@ -28,6 +28,8 @@ const OrderListItem = ({ order, getData }) => {
 
     const handleCancel = () => {
         setIsCanceled(true);
+        const statusView = document.getElementById("status");
+        statusView.value = "Đã hủy";
         cancelOrder();
     };
 
@@ -93,6 +95,7 @@ const OrderListItem = ({ order, getData }) => {
             {/* <td>{orderProfit}</td> */}
             <td>
                 <select
+                    id='status'
                     disabled={isCanceled}
                     onChange={handleChangeStatus}
                     value={currentStatus}>

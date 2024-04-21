@@ -107,6 +107,8 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         images?.forEach((image) => {
             formData.append(`images`, image);
         });
+        formData.append("productionDate", productionDate);
+        formData.append("expiryDate", expiryDate);
 
         fetch(`${process.env.REACT_APP_HOST_IP}/products/${productId}`, {
             method: "PUT",

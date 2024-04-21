@@ -3,6 +3,7 @@ import "./Dashboard.css";
 import CostStatistics from "./CostStatictics";
 import BestSellerProduct from "./BestSellerProduct";
 import Inventory from "./Inventory";
+import ExpiredProduct from "./ExpiredProduct";
 
 const Dashboard = () => {
     return (
@@ -16,6 +17,7 @@ const Dashboard = () => {
                 <div className='bottom-container'>
                     <BestSellerProduct />
                     <Inventory />
+                    <ExpiredProduct />
                 </div>
             </div>
         </div>
