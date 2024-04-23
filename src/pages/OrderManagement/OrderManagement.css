@@ -88,7 +88,7 @@
     padding: 6px 12px;
 }
 
-#OrderList .cancel:hover {
+#OrderList .cancel.avtive:hover {
     font-size: 30px;
     background-color: red;
     border-radius: 100%;
