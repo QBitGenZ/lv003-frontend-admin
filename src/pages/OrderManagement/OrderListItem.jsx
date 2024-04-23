@@ -5,10 +5,12 @@ import QRCode from "react-qr-code";
 const OrderListItem = ({ order, getData }) => {
     const [isCanceled, setIsCanceled] = useState(false);
     const [currentStatus, setCurrentStatus] = useState(order?.status);
+    const [canCancel, setCanCancel] = useState(true);
 
     useEffect(() => {
         setCurrentStatus(order?.status);
         order?.status === "Đã hủy" && setIsCanceled(true);
+        order?.status === "Đã giao" && setCanCancel(false);
     }, [order]);
 
     // Chuyển đổi sang đối tượng Date
@@ -35,6 +37,7 @@ const OrderListItem = ({ order, getData }) => {
 
     const handleChangeStatus = (e) => {
         const newStatus = e.target.value;
+        newStatus === "Đã giao" && setCanCancel(false);
         setCurrentStatus(newStatus);
         updateChangeStatus(newStatus);
     };
@@ -71,6 +74,8 @@ const OrderListItem = ({ order, getData }) => {
             .catch((error) => alert(error));
     };
 
+    const orderCustomer = order?.address?.split(";")[0];
+
     return (
         <tr>
             <td>
@@ -82,7 +87,7 @@ const OrderListItem = ({ order, getData }) => {
                 />
             </td>
             <td>{formattedDate}</td>
-            <td>{order?.user?.fullname}</td>
+            <td>{orderCustomer}</td>
             <td>
                 <CurrencyFormat
                     value={order?.totalPrice}
@@ -105,7 +110,11 @@ const OrderListItem = ({ order, getData }) => {
                 </select>
             </td>
             <td>
-                <i class='fa-solid fa-ban cancel' onClick={handleCancel}></i>
+                <i
+                    class={"fa-solid fa-ban cancel" + (canCancel && " avtive")}
+                    onClick={() => {
+                        canCancel && handleCancel();
+                    }}></i>
             </td>
         </tr>
     );
