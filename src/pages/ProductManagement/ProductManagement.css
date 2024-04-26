@@ -75,6 +75,7 @@
 
 #ProductList table .prod-name {
     width: 120%;
+    padding: 0 50px;
 }
 
 #ProductList table th,
