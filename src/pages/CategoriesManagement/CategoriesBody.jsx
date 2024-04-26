@@ -1,25 +1,12 @@
-import { Categories } from "../../common/json/Categories";
-import CategoryItem from "./CategoryItem";
+import BrandCategories from "./BrandCategories";
+import EditCategory from "./EditCategory";
+import ProductTypeCategories from "./ProductTypeCategories";
 
-const CategoriesBody = ({ onClick, catagories }) => {
+const CategoriesBody = () => {
     return (
         <div id='CategoriesBody'>
-            <table className='categories-body'>
-                <tr>
-                    <th>Mã danh mục</th>
-                    <th>Danh mục</th>
-                    {/* <th>Số lượng SP</th> */}
-                    <th>Chỉnh sửa</th>
-                </tr>
-                {catagories.map((category) => (
-                    <CategoryItem
-                        categoryID={category?._id}
-                        categoryName={category?.name}
-                        productQuantity={category.productQuantity}
-                        editClicked={onClick}
-                    />
-                ))}
-            </table>
+            <ProductTypeCategories />
+            <BrandCategories />
         </div>
     );
 };

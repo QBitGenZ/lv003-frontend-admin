@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CategoriesBody from "./CategoriesBody";
+import CategoriesList from "./CategoriesList";
 import EditCategory from "./EditCategory";
 
 const CategoriesWrapper = () => {
@@ -38,7 +38,9 @@ const CategoriesWrapper = () => {
         <div id='CategoriesWrapper'>
             <div className='categories-left-side'>
                 <div className='categories-header'>
-                    <div className='categories-title'>Danh sách danh mục</div>
+                    <div className='categories-title'>
+                        Danh mục loại sản phẩm
+                    </div>
                     <div
                         className={
                             "add-category-btn " +
@@ -48,7 +50,7 @@ const CategoriesWrapper = () => {
                         Thêm mới
                     </div>
                 </div>
-                <CategoriesBody
+                <CategoriesList
                     onClick={handleAddCategoryClicked}
                     catagories={categories}
                 />

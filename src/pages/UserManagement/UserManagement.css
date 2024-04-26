@@ -16,6 +16,10 @@
     margin: 24px 0;
 }
 
+#UserInforBody .user-infor-body {
+    margin: 0 auto;
+}
+
 #UserInforBody .user-infor-body * {
     padding: 6px 24px;
     border: 0;
@@ -52,7 +56,9 @@
 }
 
 #UserInforDetail .user-infor-detail-body-right {
-    width: 55%;
+    width: 70%;
+    padding: 12px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -72,9 +78,15 @@
     font-weight: 600;
 }
 
-#UserInforDetail .user-detail-right-top .user-email {
+#UserInforDetail .user-detail-right-top .user-name span {
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+}
+
+#UserInforDetail .user-detail-right-top div.user-email span {
     color: #5768d2;
-    font-size: 20px;
+    font-size: 26px;
     text-decoration-line: underline;
     cursor: pointer;
     margin-top: 4px;

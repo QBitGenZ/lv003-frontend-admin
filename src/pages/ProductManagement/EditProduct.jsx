@@ -28,7 +28,7 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
     }, []);
 
     const getProductTypes = () => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/product-types`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/product-types?limit=1000`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -43,7 +43,7 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
     };
 
     const getBrand = () => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/brands`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/brands?limit=1000`, {
             method: "GET",
             headers: {
                 Accept: "application/json",

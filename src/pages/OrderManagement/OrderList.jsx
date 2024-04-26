@@ -1,27 +1,34 @@
 import OrderListItem from "./OrderListItem";
 import { useEffect, useState } from "react";
+import Pagination from "../../common/Pagination";
 
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
     const [filteredOrders, setFilteredOrders] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState("all");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
 
     useEffect(() => {
         getOrders();
-    }, []);
+    }, [currentPage]);
 
     const getOrders = () => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/orders/admin/`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                Accept: "application/json",
-            },
-        })
+        fetch(
+            `${process.env.REACT_APP_HOST_IP}/orders/admin?page=${currentPage}`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Accept: "application/json",
+                },
+            }
+        )
             .then((res) => res.json())
             .then((data) => {
                 setOrders(data?.data);
                 filterOrders(data?.data, selectedStatus);
+                setTotalPage(data?.meta?.totalPage);
             })
             .catch((error) => alert(error));
     };
@@ -41,12 +48,13 @@ const OrderList = () => {
     };
 
     const filterOrders = (ordersToFilter, status) => {
-
         let filtered = [];
         if (status === "all") {
             filtered = [...ordersToFilter];
         } else {
-            filtered = ordersToFilter.filter((order) => order.status === status);
+            filtered = ordersToFilter.filter(
+                (order) => order.status === status
+            );
         }
         setFilteredOrders(filtered);
     };
@@ -99,6 +107,13 @@ const OrderList = () => {
                     return <OrderListItem order={order} getData={getOrders} />;
                 })}
             </table>
+            {totalPage > 0 && (
+                <Pagination
+                    totalPage={totalPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
+            )}
         </div>
     );
 };

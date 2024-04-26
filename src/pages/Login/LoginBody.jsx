@@ -63,9 +63,9 @@ const LoginBody = () => {
                             }></input>
                         <i class='fa-solid fa-lock'></i>
                     </form>
-                    <Link className='button login-btn' onClick={handleLogin}>
+                    <button className='button login-btn' onClick={handleLogin}>
                         Đăng nhập
-                    </Link>
+                    </button>
                 </div>
             </div>
         </>

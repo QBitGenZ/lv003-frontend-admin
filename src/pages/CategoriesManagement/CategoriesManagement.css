@@ -2,6 +2,16 @@
     font-size: 20px;
 }
 
+#category-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+}
+
 #CategoriesManagement table td,
 #CategoriesManagement table th {
     white-space: nowrap;
@@ -9,103 +19,155 @@
     text-align: center;
 }
 
-#CategoriesWrapper {
-    margin-top: 7%;
-    margin-left: 22%;
-    margin-bottom: 5%;
+/* Body */
+
+#ProductTypeCategories,
+#BrandCategories {
+    width: 73vw;
+    background-color: #f5f5f5;
+    margin: 8% 0 0 22%;
+    padding: 20px;
+    border-radius: 16px;
+}
+
+/* Header */
+
+#CategoriesHeader {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: end;
-}
-
-#CategoriesWrapper .categories-left-side,
-#CategoriesWrapper .categories-right-side {
-    border-radius: 15px;
-    background: #fff;
-    box-shadow: 0px 3.5px 10px 0px #b9e3fc;
-    padding: 32px;
-    margin: 0 16px;
-}
-
-#CategoriesWrapper .categories-right-side {
-    width: 70%;
-    height: 100%;
-}
-
-#CategoriesWrapper .categories-left-side .categories-header {
-    display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    padding: 0 12px;
+    margin-bottom: 36px;
 }
 
-#CategoriesWrapper .categories-header .categories-title,
-#EditCategory .edit-category-header {
+#CategoriesHeader.showing-add {
+    overflow: hidden;
+}
+
+#CategoriesHeader h1 {
+    text-transform: uppercase;
     font-size: 30px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
-#CategoriesWrapper .categories-header .add-category-btn {
-    border-radius: 10px;
-    border: 2px #687ad6 solid;
-    padding: 8px 20px;
-    color: #485aff;
+#CategoriesHeader .add-new-category-btn {
+    width: 20%;
 }
 
-#CategoriesWrapper .categories-header .add-category-btn:hover {
-    cursor: pointer;
-    background-color: #b9e3fc;
-}
-
-#CategoriesWrapper .categories-header .add-category-btn.active {
-    background-color: #b9e3fc;
-}
-
-#CategoriesBody .edit-category {
-    cursor: pointer;
-}
-
-#EditCategory .edit-category-header {
-    margin-bottom: 32px;
-}
-
-#EditCategory .edit-category-body > label {
-    font-weight: 600;
-}
-
-#EditCategory .edit-category-body #category-name {
-    display: block;
-    width: 97%;
-    padding: 8px;
-    margin: 8px 0 32px;
-}
-
-#EditCategory .edit-category-body .edit-catagory-btn-container {
+/* List */
+#CategoriesList {
+    width: 100%;
+    margin: 12px auto;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    width: 50%;
-    margin: 48px auto 0;
+    justify-content: center;
 }
 
-#EditCategory .edit-catagory-btn-container .cancel-btn {
-    border-radius: 5px;
-    background: #e2e8f0;
-    padding: 4px 32px;
-}
-
-#EditCategory .edit-catagory-btn-container .approve-btn {
-    border-radius: 5px;
-    background: linear-gradient(90deg, #485abb 0%, #687ad6 0.01%, #99a9ff 100%);
-    padding: 4px 32px;
-}
-
-#EditCategory .edit-catagory-btn-container .cancel-btn:hover,
-#EditCategory .edit-catagory-btn-container .approve-btn:hover {
+#CategoriesList .category-item .edit-category:hover,
+#CategoriesList .category-item .remove-category:hover {
     cursor: pointer;
     opacity: 0.8;
+}
+
+/* Add Cateory */
+#AddCategory,
+#AddBrand {
+    width: 50vw;
+    height: 80vh;
+    position: fixed;
+    left: 26%;
+    top: 10%;
+    background-color: #fff;
+    padding: 20px;
+    padding-top: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 2px 2px 32px 6px #999;
+}
+
+#AddCategory .add-category-header,
+#AddBrand .add-category-header {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
+    width: 101%;
+}
+
+#AddCategory .add-category-body #category-name,
+#AddBrand .add-category-body #category-name {
+    display: block;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 0;
+    margin-top: 4px;
+    margin-bottom: 1rem;
+}
+
+#AddCategory .add-category-body .button-container,
+#AddBrand .add-category-body .button-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 12px 0;
+}
+
+#AddCategory .add-category-body .button-container > *,
+#AddBrand .add-category-body .button-container > * {
+    width: 30%;
+}
+
+#EditCategory,
+#EditBrand {
+    width: 50vw;
+    height: 80vh;
+    position: fixed;
+    left: 26%;
+    top: 10%;
+    background-color: #fff;
+    padding: 20px;
+    padding-top: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 2px 2px 32px 6px #999;
+}
+
+#EditCategory .edit-category-header,
+#EditBrand .edit-category-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
+    width: 101%;
+}
+
+#EditCategory .edit-category-header .cancel-edit,
+#EditBrand .edit-category-header .cancel-edit {
+    float: left;
+    cursor: pointer;
+}
+
+#EditCategory .edit-category-body input[type="text"],
+#EditBrand .edit-category-body input[type="text"] {
+    width: calc(100% - 12px);
+    margin: 8px 0 20px;
+    padding: 8px 4px;
+}
+
+#EditCategory .edit-catagory-btn-container,
+#EditBrand .edit-catagory-btn-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#EditCategory .edit-catagory-btn-container > *,
+#EditBrand .edit-catagory-btn-container > * {
+    width: 30%;
 }

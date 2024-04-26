@@ -2,12 +2,12 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useEffect, useState } from "react";
 
-const EditCategory = ({ categoryID, cancelClicked }) => {
-    const [categoryName, setCategoryName] = useState("");
-    const [categoryDescription, setCategoryDescription] = useState("");
+const EditBrand = ({ categoryID, cancelClicked }) => {
+    const [name, setName] = useState("");
+    const [text, setText] = useState("");
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/product-types/${categoryID}`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/brands/${categoryID}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -18,16 +18,16 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
                 return res.json();
             })
             .then((data) => {
-                setCategoryName(data?.data?.name);
-                setCategoryDescription(data?.data?.description);
+                setName(data?.data?.name);
+                setText(data?.data?.text);
             })
             .catch((error) => {
                 console.log(error);
             });
     }, []);
 
-    const updateProductType = () => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/product-types/${categoryID}`, {
+    const updateBrand = () => {
+        fetch(`${process.env.REACT_APP_HOST_IP}/brands/${categoryID}`, {
             method: "PUT",
             headers: {
                 Accept: "application/json",
@@ -35,8 +35,8 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: categoryName,
-                description: categoryDescription,
+                name: name,
+                text: text,
             }),
         })
             .then((res) => {
@@ -53,16 +53,16 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
     };
 
     const handleChangeName = (event) => {
-        setCategoryName(event.target.value);
+        setName(event.target.value);
     };
 
     const handleChangeDescription = (event, editor) => {
         const data = editor.getData();
-        setCategoryDescription(data);
+        setText(data);
     };
 
     return (
-        <div id='EditCategory'>
+        <div id='EditBrand'>
             <div className='edit-category-header'>
                 <span className='cancel-edit' onClick={() => cancelClicked()}>
                     <i class='fa-solid fa-chevron-left'></i> Trở về
@@ -73,7 +73,7 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
                         fontWeight: "600",
                         marginLeft: "-2rem",
                     }}>
-                    Chỉnh sửa loại sản phẩm
+                    Chỉnh sửa nhãn hàng
                 </span>
             </div>
             <div className='edit-category-body'>
@@ -81,7 +81,7 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
                 <input
                     id='category-name'
                     type='text'
-                    value={categoryName}
+                    value={name}
                     onChange={(event) => {
                         handleChangeName(event);
                     }}></input>
@@ -89,7 +89,7 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
                 <CKEditor
                     id={"category-description"}
                     editor={ClassicEditor}
-                    data={categoryDescription}
+                    data={text}
                     onChange={handleChangeDescription}
                 />
                 <div className='edit-catagory-btn-container'>
@@ -100,7 +100,7 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
                     </div>
                     <div
                         className='approve-btn button'
-                        onClick={() => updateProductType()}>
+                        onClick={() => updateBrand()}>
                         Lưu
                     </div>
                 </div>
@@ -109,4 +109,4 @@ const EditCategory = ({ categoryID, cancelClicked }) => {
     );
 };
 
-export default EditCategory;
+export default EditBrand;

@@ -49,17 +49,28 @@ const UserInforDetail = ({ user, onClickBack }) => {
                 <i class='fa-solid fa-chevron-left'></i> Trở về
             </div>
             <div className='user-infor-detail-body'>
-                <div className='user-infor-detail-body-left'>
+                {/* <div className='user-infor-detail-body-left'>
                     <img
                         src={
                             process.env.PUBLIC_URL + "/images/user_detail.png"
                         }></img>
-                </div>
+                </div> */}
                 <div className='user-infor-detail-body-right'>
                     <div className='user-detail-right-top'>
                         <div className='user-name-wrapper'>
-                            <div className='user-name'>{user?.fullname}</div>
-                            <div className='user-email'>{user?.email}</div>
+                            <div
+                                className='user-name'
+                                style={{ color: "#666" }}>
+                                Người dùng <span>{user?.fullname}</span>
+                            </div>
+                            <div
+                                className='user-email'
+                                style={{
+                                    color: "#666",
+                                    textDecoration: "none",
+                                }}>
+                                Email <span>{user?.email}</span>
+                            </div>
                         </div>
                         <div
                             className='delete-user-btn'
