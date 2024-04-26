@@ -14,7 +14,7 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
     const [cost, setCost] = useState();
     const [quantity, setQuantity] = useState();
     let [tags, setTags] = useState();
-    const [images, setImages] = useState();
+    const [images, setImages] = useState([]);
     const [expiryDate, setExpiryDate] = useState();
     const [productionDate, setProductionDate] = useState();
 
@@ -82,11 +82,13 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
                 setQuantity(data?.data?.quantity);
                 setTags(data?.data?.tags.join(" "));
                 setImages(data?.data?.images);
-                loadImgFromBackend(data?.data?.images[0]);
                 setExpiryDate(formatDateFromMongo(data?.data?.expiryDate));
                 setProductionDate(
                     formatDateFromMongo(data?.data?.productionDate)
                 );
+            })
+            .then(() => {
+                console.log(images);
             })
             .catch((error) => alert(error));
     };
@@ -210,12 +212,6 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         }
     };
 
-    const loadImgFromBackend = (imageUrl) => {
-        document.getElementById(
-            "inputImg"
-        ).src = `${process.env.REACT_APP_HOST_IMAGE_IP}/${imageUrl}`;
-    };
-
     const formatDateFromMongo = (date) => {
         // Giả sử bạn có một biến dateStr lưu trữ dữ liệu từ MongoDB
         const dateStrFromMongoDB = date;
@@ -228,9 +224,9 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         const year = dateObj.getFullYear();
 
         // Chuyển đổi định dạng JavaScript Date object thành yyyy-MM-dd
-        return `${month.toString().padStart(2, "0")} / ${day
+        return `${year}-${month.toString().padStart(2, "0")}-${day
             .toString()
-            .padStart(2, "0")} / ${year}`;
+            .padStart(2, "0")}`;
     };
 
     return (
@@ -249,7 +245,9 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
                         <img
                             id='inputImg'
                             src={
-                                process.env.PUBLIC_URL + "/images/input_img.png"
+                                process.env.REACT_APP_HOST_IMAGE_IP +
+                                "/" +
+                                images[0]
                             }></img>
                     </label>
                 </div>
