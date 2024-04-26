@@ -1,0 +1,32 @@
+#Pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#Pagination > .prev-page,
+#Pagination > .next-page {
+    padding: 10px;
+    margin: 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+}
+
+#Pagination > .prev-page:hover,
+#Pagination > .next-page:hover {
+    cursor: pointer;
+    background-color: #5dadf7;
+}
+
+#Pagination .current-page {
+    padding: 10px 8px;
+    margin: 0 8px;
+    cursor: pointer;
+}
+
+#Pagination .current-page.active {
+    font-weight: 600;
+    transform: scale(1.5);
+    transition-duration: 0.15s;
+    transform-style: preserve-3d;
+}

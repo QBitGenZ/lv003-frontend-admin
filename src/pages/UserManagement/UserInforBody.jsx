@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { UserInforData } from "../../common/json/UserInfor";
 import UserInfor from "./UserInfor";
 import UserInforDetail from "./UserInforDetail";
+import Pagination from "../../common/Pagination";
 
 const UserInforBody = () => {
     const [showUserInforDetail, setShowUserInforDetail] = useState(false);
     const [users, setUsers] = useState([]);
     const [userId, setUserId] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/user`, {
+        fetch(`${process.env.REACT_APP_HOST_IP}/user?page=${currentPage}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -19,11 +21,12 @@ const UserInforBody = () => {
             .then((res) => res.json())
             .then((data) => {
                 setUsers(data?.data);
+                setTotalPage(data?.meta?.totalPage);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [currentPage]);
 
     const handleUserClicked = (event) => {
         setShowUserInforDetail(true);
@@ -60,6 +63,13 @@ const UserInforBody = () => {
                     />
                 ))}
             </table>
+            {totalPage > 0 && (
+                <Pagination
+                    totalPage={totalPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
+            )}
         </div>
     );
 };

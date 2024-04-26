@@ -1,26 +1,33 @@
 import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
+import Pagination from "../../common/Pagination";
 
 const ProductList = ({ handleClickEdit }) => {
     const [products, setProducts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [currentPage]);
 
     const getProducts = () => {
-        fetch(`${process.env.REACT_APP_HOST_IP}/products/admin/`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                Accept: "application/json",
-            },
-        })
+        fetch(
+            `${process.env.REACT_APP_HOST_IP}/products/admin?page=${currentPage}`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Accept: "application/json",
+                },
+            }
+        )
             .then((res) =>
                 res.status === 200 ? res.json() : Promise.reject(res.json())
             )
             .then((data) => {
                 setProducts(data?.data);
+                setTotalPage(data?.meta?.totalPage);
             })
             .catch((error) => console.log(error));
     };
@@ -51,6 +58,13 @@ const ProductList = ({ handleClickEdit }) => {
                     />
                 ))}
             </table>
+            {totalPage > 0 && (
+                <Pagination
+                    totalPage={totalPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
+            )}
         </div>
     );
 };
