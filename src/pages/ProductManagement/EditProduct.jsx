@@ -17,6 +17,7 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
     const [images, setImages] = useState([]);
     const [expiryDate, setExpiryDate] = useState();
     const [productionDate, setProductionDate] = useState();
+    const [videos, setVideos] = useState(null);
 
     const [types, setTypes] = useState([]);
     const [brands, setBrands] = useState([]);
@@ -104,6 +105,7 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         formData.append("quantity", quantity);
         formData.append("description", description);
         formData.append("price", price);
+        formData.append("video", videos);
         formData.append("cost", cost);
         formData.append("tags", JSON.stringify(tags.split(" ")));
         images?.forEach((image) => {
@@ -193,6 +195,10 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
         setTags(e.target.value);
     };
 
+    const handleChangeVideos = (e) => {
+        setVideos(e.target.files[0]);
+    };
+
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         setImages(files);
@@ -250,6 +256,22 @@ const EditProduct = ({ productId, handleBackButtonClicked }) => {
                                 images[0]
                             }></img>
                     </label>
+
+                    <input
+                        id='videoFile'
+                        type='file'
+                        accept='video/*'
+                        onChange={handleChangeVideos}></input>
+                    <label htmlFor='videoFile' className='input-img'>
+                        <img
+                            id='inputVideo'
+                            src={
+                                process.env.PUBLIC_URL + "/images/input_img.png"
+                            }></img>
+                    </label>
+                    <p>
+                        Đã thêm: {images?.length} ảnh, {videos ? 1 : 0} video
+                    </p>
                 </div>
 
                 <div className='edit-prod-body-right'>

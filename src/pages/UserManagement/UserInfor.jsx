@@ -32,7 +32,7 @@ const UserInfor = ({
             </td>
             <td>{userName}</td>
             <td>{userPhone}</td>
-            <td>{userGender}</td>
+            <td>{userGender === "Male" ? "Nam" : "Nữ"}</td>
             <td>{calculateAge(userAge)}</td>
         </tr>
     );

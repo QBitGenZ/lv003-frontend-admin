@@ -1,5 +1,4 @@
 import BestSellerProductItem from "./BestSellerProductItem";
-import { ProductData } from "../../common/json/ProductData";
 import { useEffect, useState } from "react";
 
 const BestSellerProduct = () => {
@@ -32,7 +31,7 @@ const BestSellerProduct = () => {
                     <th>Số lượng bán</th>
                     {/* <th>Doanh thu</th> */}
                 </tr>
-                {product.map((prod) => (
+                {product?.map((prod) => (
                     <BestSellerProductItem product={prod} />
                 ))}
             </table>

@@ -11,6 +11,7 @@ const OrderListItem = ({ order, getData }) => {
         setCurrentStatus(order?.status);
         order?.status === "Đã hủy" && setIsCanceled(true);
         order?.status === "Đã giao" && setCanCancel(false);
+        order?.paymentDate && setCanCancel(false);
     }, [order]);
 
     // Chuyển đổi sang đối tượng Date
@@ -97,7 +98,7 @@ const OrderListItem = ({ order, getData }) => {
                     renderText={(value) => <div>{value}</div>}
                 />
             </td>
-            {/* <td>{orderProfit}</td> */}
+            <td>{order?.paymentMethod}</td>
             <td>
                 <select
                     id='status'
@@ -109,6 +110,7 @@ const OrderListItem = ({ order, getData }) => {
                     ))}
                 </select>
             </td>
+            <td>{order?.paymentDate && <i class='fa-solid fa-check'></i>}</td>
             <td>
                 <i
                     class={"fa-solid fa-ban cancel" + (canCancel && " avtive")}
