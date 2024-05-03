@@ -102,8 +102,8 @@ const UserInforDetail = ({ user, onClickBack }) => {
                         {currentTab === "information" ? (
                             <table className='user-detail-bot-body'>
                                 <tr className='user-id'>
-                                    <td className='key'>UID: </td>
-                                    <td>{user?._id}</td>
+                                    <td className='key'>username: </td>
+                                    <td>{user?.username}</td>
                                 </tr>
                                 <tr className='user-name'>
                                     <td className='key'>Họ tên: </td>
@@ -115,7 +115,9 @@ const UserInforDetail = ({ user, onClickBack }) => {
                                 </tr>
                                 <tr className='user-gender'>
                                     <td className='key'>Giới tính: </td>
-                                    <td>{user?.gender}</td>
+                                    <td>
+                                        {user?.gender === "Male" ? "Nam" : "Nữ"}
+                                    </td>
                                 </tr>
                                 <tr className='user-email'>
                                     <td className='key'>Email: </td>

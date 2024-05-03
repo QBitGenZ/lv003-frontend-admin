@@ -4,18 +4,19 @@ import Pagination from "../../common/Pagination";
 
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
-    const [filteredOrders, setFilteredOrders] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState("all");
+    const [selectedPayment, setSelectedPayment] = useState("all");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
 
     useEffect(() => {
         getOrders();
-    }, [currentPage]);
+    }, [currentPage, selectedStatus, selectedPayment]);
 
     const getOrders = () => {
+        console.log("selectedStatus", selectedStatus);
         fetch(
-            `${process.env.REACT_APP_HOST_IP}/orders/admin?page=${currentPage}`,
+            `${process.env.REACT_APP_HOST_IP}/orders/admin?page=${currentPage}&status=${selectedStatus}&isPaid=${selectedPayment}`,
             {
                 method: "GET",
                 headers: {
@@ -27,7 +28,6 @@ const OrderList = () => {
             .then((res) => res.json())
             .then((data) => {
                 setOrders(data?.data);
-                filterOrders(data?.data, selectedStatus);
                 setTotalPage(data?.meta?.totalPage);
             })
             .catch((error) => alert(error));
@@ -36,27 +36,12 @@ const OrderList = () => {
     const handleFilterChange = (e) => {
         const selectedValue = e.target.value;
         setSelectedStatus(selectedValue);
-
-        if (selectedValue === "all") {
-            setFilteredOrders(orders);
-        } else {
-            setFilteredOrders(
-                orders.filter((order) => order.status === selectedValue)
-            );
-            console.log(filteredOrders);
-        }
+        setCurrentPage(1);
     };
 
-    const filterOrders = (ordersToFilter, status) => {
-        let filtered = [];
-        if (status === "all") {
-            filtered = [...ordersToFilter];
-        } else {
-            filtered = ordersToFilter.filter(
-                (order) => order.status === status
-            );
-        }
-        setFilteredOrders(filtered);
+    const handleChangePayment = (e) => {
+        setSelectedPayment(e.target.value);
+        setCurrentPage(1);
     };
 
     let price = 0.0;
@@ -84,6 +69,16 @@ const OrderList = () => {
                             </option>
                         ))}
                     </select>
+                    {" & "}
+                    <select
+                        value={selectedPayment}
+                        onChange={(e) => handleChangePayment(e)}>
+                        <option value={"all"}>-- Tất cả --</option>
+                        <option value={"Đã thanh toán"}>Đã thanh toán</option>
+                        <option value={"Chưa thanh toán"}>
+                            Chưa thanh toán
+                        </option>
+                    </select>
                 </div>
             </div>
             <table>
@@ -92,11 +87,12 @@ const OrderList = () => {
                     <th>Thời gian đặt hàng</th>
                     <th>Khách hàng</th>
                     <th>Giá trị đơn hàng</th>
-                    {/* <th>Lợi nhuận</th> */}
+                    <th>PTTT</th>
                     <th>Trạng thái</th>
+                    <th>Đã thanh toán</th>
                     <th>Hủy đơn</th>
                 </tr>
-                {filteredOrders?.map((order) => {
+                {orders?.map((order) => {
                     order?.items?.map((item) => {
                         price +=
                             item?.product?.price * 1.0 * item?.quantity + 25000;
